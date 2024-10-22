@@ -3,36 +3,39 @@ import Pjt1 from "../../assets/images/h2o.jpg";
 import Pjt2 from "../../assets/images/ir.jpg";
 import Pjt3 from "../../assets/images/bg.jpg";
 import Pjt4 from "../../assets/images/rw.jpg";
-import { Facebook } from "lucide-react";
-import { Instagram } from "lucide-react";
-import { Twitter } from "lucide-react";
-import { Linkedin } from "lucide-react";
+import Img5 from "../../assets/images/img5.jpg";
+import Donationform from "../../constants/donationform";
+import { Facebook, Instagram, Twitter, Linkedin, MapPin } from "lucide-react";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHandsHelping,
+  faDonate,
+  faHandshake,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 
 const projects = [
   {
     id: 1,
     title: "Water Distribution System",
-    description: "Borehole Project for the University of Texas at Austin",
+    location: "Ullo, Upper West, Ghana",
     img: Pjt1,
+
   },
   {
     id: 2,
     title: "Rain Water Catchment/ Irrigation",
-    description: "Borehole Project for the University of Texas at Austin",
+    location: "Ullo, Upper West, Ghana",
     img: Pjt2,
   },
   {
     id: 3,
     title: "Bridge Construction",
-    description: "Borehole Project for the University of Texas at Austin",
+    location: "Ullo, Upper West, Ghana",
     img: Pjt3,
   },
-  {
-    id: 4,
-    title: "Kitchen Stove Construction",
-    description: "Borehole Project for the University of Texas at Austin",
-    img: Pjt4,
-  },
+
 ];
 
 const objectives = [
@@ -195,30 +198,29 @@ export default function Home() {
           <h2 className="text-3xl font-bold">POPULAR PROJECTS</h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3">
           {/*project*/}
           {projects.map((item) => (
-            <div
-              className=" p-2 border border-neutral-300 hover:border-blue-500 space-y-2 rounded-lg h-72 W-60"
-              key={item.id}
-            >
-              <div className="relative group h-60 overflow-hidden rounded-lg shadow-lg">
+            <div key={item.id}>
+              <div className="relative group h-96 w-64 overflow-hidden rounded-lg shadow-lg">
                 <img
                   src={item?.img}
                   alt={`${item.title}'s image`}
                   className="absolute inset-0 object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm  h-full w-full"
                 />
                 {/* Overlay with hidden text */}
-                <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                  <div className="text-white text-center px-6">
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-opacity duration-500 flex items-end justify-center">
+                  <div className="text-white text-start p-6">
                     <h2 className="text-2xl font-bold">{item.title}</h2>
-                    <p className="">{item.description}</p>
+                    <p className="flex text-wrap text-md">
+                      <MapPin size={25} className="pr-2" />
+                      {item.location}
+                    </p>
+                    <button className="bg-blue-500 w-[6rem] text-white text-xs hover:bg-blue-600  mt-2 p-1 rounded-full border hover:border-blue-500 hover:shadow-md transition-all duration-300 ease-in-out">
+                      View Project
+                    </button>
                   </div>
                 </div>
-              </div>
-              {/* Text under the card */}
-              <div className="text-center text-blue-500 font-semibold text-wrap">
-                <h2>{item.title}</h2>
               </div>
             </div>
           ))}
@@ -232,7 +234,7 @@ export default function Home() {
       </section>
 
       {/**/}
-      <section className="call-to-action w-full pb-16  flex flex-col items-center justify-center">
+      <section className="call-to-action w-full flex flex-col items-center justify-center">
         <div className="w-full flex-1 py-36 bg-blue-800">
           <h1 className="container px-24 text-center text-white text-5xl font-extrabold">
             Your little support can give a child in a community a livelihood.
@@ -241,53 +243,79 @@ export default function Home() {
         </div>
 
         <div className="w-full flex flex-1 py-16 bg-teal-400 justify-between relative">
-          <div className=" flex flex-col items-center justify-center w-1/3 text-wrap m">
-            <h2 className="text-center text-white text-3xl font-bold p-6">
+          <div className=" flex flex-col items-center justify-center w-1/3 text-wrap">
+            <FontAwesomeIcon
+              icon={faUsers}
+              size="3x"
+              className="pb-6  text-blue-800"
+            />
+            <h2 className="text-center text-white text-3xl font-bold">
+              Become A Volunteer...
+            </h2>
+            <h2 className="text-center text-white text-xl font-semibold px-6">
               Are you passionate about the livelihood of people? then...
             </h2>
             <button className="bg-blue-500 w-[10rem] text-white hover:bg-blue-800  mt-6 px-4 py-2 rounded-md border hover:border-blue-500 hover:shadow-md transition-all duration-300 ease-in-out">
-              Get Involved
+              Join Us Now
             </button>
           </div>
 
           {/* Overlapping div */}
-          <div className="absolute flex flex-col items-center justify-center left-1/2 transform -translate-x-1/2 -top-16  w-3/4 md:w-1/3 h-[30rem] bg-teal-400 shadow-lg rounded-lg z-10 transition-transform duration-300 hover:scale-105">
+          <div className="absolute flex flex-col items-center justify-center left-1/2 transform -translate-x-1/2 -top-16  w-3/4 md:w-1/3 h-[30rem] bg-teal-400 shadow-lg rounded-lg z-10 transition-transform duration-300 hover:scale-105  p-16">
             {/* Content inside the overlapping div */}
-            <h2 className="text-center text-white text-3xl font-bold px-6">
+            <FontAwesomeIcon
+              icon={faDonate}
+              size="3x"
+              className="pb-6  text-blue-800"
+            />
+            <h2 className="text-center text-white text-3xl font-bold">
+              Donate To Support
+            </h2>
+            <h2 className="text-center text-white text-xl font-bold px-6">
               Sponsor an entire trending project
             </h2>
-            <p className="text-center text-white mt-5">
-              For GH₵ 10,000 or more you can fully fund a water project for a
-              Community. 100% funds clean water projects. 663 million people
-              drink..
-            </p>
+
             <button className="bg-blue-500 w-[15rem] text-white hover:bg-blue-800  mt-10 px-4 py-2 rounded-md  border hover:border-blue-500 hover:shadow-md transition-all duration-300 ease-in-out">
-              BECOME A SPONSOR
+              Donate Now
             </button>
           </div>
 
           <div className=" socials flex flex-col items-center justify-center w-1/3 text-wrap">
-            <h2 className="text-center text-white text-3xl font-bold p-6">
-              Connect with us on socials
+            <FontAwesomeIcon
+              icon={faHandshake}
+              size="3x"
+              className="text-blue-800"
+            />
+            <h2 className="text-center text-white text-3xl font-bold">
+              Become A Partner
+            </h2>
+            <h2 className="text-center text-white text-xl font-bold px-6">
+              Let's Make A Difference Today
             </h2>
 
-            <div className="flex gap-5">
-              {socials.map((item) => (
-                <div
-                  className=" border-0 rounded-full bg- p-3 bg-blue-500   text-white hover:bg-blue-800  mt-10  hover:border-blue-500 hover:shadow-md transition-all duration-300 "
-                  key={item.id}
-                >
-                  <a href={item.link}>{item.icon}</a>
-                </div>
-              ))}
-            </div>
-
+            <button className="bg-blue-500 w-[15rem] text-white hover:bg-blue-800  mt-10 px-4 py-2 rounded-md  border hover:border-blue-500 hover:shadow-md transition-all duration-300 ease-in-out">
+              Get Involved Now
+            </button>
           </div>
         </div>
       </section>
 
       {/**/}
-      <section className="w-full h-screen"></section>
+      <section className={`w-full py-16 bg-image bg-cover bg-center`}>
+        <div className="container mx-auto">
+          <div className="flex flex-col items-center">
+            {/* You might want to include a heading or any text here */}
+            <h2 className="text-4xl font-bold text-white mb-8">
+              Support Our Cause
+            </h2>
+
+            {/* Rendering the donation form */}
+            <div className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg">
+              {Donationform}
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

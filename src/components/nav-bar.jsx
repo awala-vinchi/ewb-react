@@ -4,8 +4,7 @@ import { NavLink } from "react-router-dom";
 export default function NavBar() {
   return (
     <nav
-      className="flex fixed w-[89%] left-1/2 rounded-full translate-x-[-50%] text-te bg-transparent py-1 px-8  top-4
-                  bg-white text-neutral-600 items-center justify-between z-50 border-b"
+      className="flex fixed w-[89%] left-1/2 rounded-full translate-x-[-50%]   bg-transparent py-1 px-8  top-4 bg-white text-neutral-600 items-center justify-between z-50 border-b"
     >
       {/* Logo */}
       <NavLink className="w-16 h-16">
