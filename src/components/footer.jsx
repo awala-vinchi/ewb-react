@@ -58,7 +58,10 @@ const contact = [
 
 export default function Footer() {
   return (
-    <footer className="w-full py-16 bg-stone-300  text-neutral-600 flex flex-col">
+    <footer className="w-full py-16 text-neutral-600 flex flex-col">
+      <div className="hero w-full h-96 bg-[url('/src/assets/images/6.jpg')] bg-cover bg-top relative mb-5">
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+      </div>
       <div className="flex gap-6 items-center justify-evenly pb-5 border-b w-[89%] mx-auto">
         {contact.map((item) => (
           <div className="" key={item.id}>
