@@ -52,16 +52,15 @@ export default function OnM() {
         </p>
       </div>
 
-      <div className="objectives text-neutral-600 text-justify  flex flex-col justify-center items-center z-20 p-16">
+      <div className="objectives text-neutral-600 text-justify flex flex-col justify-center items-center p-16">
         <div>
           <h2 className="text-3xl font-bold">OUR OBJECTIVES</h2>
           <p className="text-md ml-5"> Our Strategic Priorities are;</p>
         </div>
 
         <div className="grid grid-cols-2 gap-4 p-5">
-          {/*Row 1 - 2 Colums */}
 
-          {/* Card 1 */}
+
           {objectives.map((item) => (
             <div
               className="col-span-1 bg-pink-100 text-neutral-600 rounded-lg border hover:border-blue-500 hover:shadow-md transition-all duration-300 ease-in-out  p-6   flex flex-col items-center text-center"
