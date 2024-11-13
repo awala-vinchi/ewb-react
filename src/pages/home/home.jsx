@@ -4,6 +4,8 @@ import OnM from "../../pages/home/components/OnM";
 import CallToAction from "../../pages/home/components/call-to-action";
 import Projects from "../../pages/home/components/project";
 import Partner from "../../pages/home/components/partner";
+import News from "../../pages/home/components/news";
+import Events  from "../../pages/home/components/events";
 
 
 export default function Home() {
@@ -15,6 +17,8 @@ export default function Home() {
       <OnM />
       <CallToAction />
       <Projects />
+      <Events />
+      <News />
 
       
     </>

@@ -31,9 +31,9 @@ const projects = [
 export default function Project() {
   // Renamed to 'Project'
   return (
-    <section className="w-full py-24 bg-stone-100 flex flex-col items-center justify-center">
+    <section className="w-full py-24 flex flex-col items-center justify-center">
       <div className="text-neutral-600 text-justify justify-center items-center p-10">
-        <h2 className="text-3xl font-bold">POPULAR PROJECTS</h2>
+        <h2 className="text-3xl font-bold">OUR POPULAR PROJECTS</h2>
       </div>
 
       <div className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3">

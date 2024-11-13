@@ -32,7 +32,7 @@ export default function Partners() {
     <section className="bg-stone-200 py-16 flex flex-col items-center  text-neutral-600">
       <div>
         <h2 className="text-3xl font-bold">OUR PARTNERS</h2>
-        <p className="text-md mb-6"> Trusted by the biggest brands.</p>
+        <p className="text-md mb-6 text-center"> Trusted by the biggest brands.</p>
       </div>
       <div className="flex justify-evenly items-center w-full">
         {partner.map((item) => (
