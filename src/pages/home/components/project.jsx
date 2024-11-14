@@ -3,6 +3,7 @@ import React from "react";
 import Pjt1 from "../../../assets/images/h2o.jpg";
 import Pjt2 from "../../../assets/images/ir.jpg";
 import Pjt3 from "../../../assets/images/bg.jpg";
+import Pjt4 from "../../../assets/images/rw.jpg";
 
 import { FaMapPin } from "react-icons/fa";
 
@@ -26,6 +27,12 @@ const projects = [
     location: "Ullo, Upper West, Ghana",
     img: Pjt3,
   },
+  {
+    id: 4,
+    title: "Kitchen Stove Construction",
+    location: "Ullo, Upper West, Ghana",
+    img: Pjt4,
+  },
 ];
 
 export default function Project() {
@@ -36,7 +43,7 @@ export default function Project() {
         <h2 className="text-3xl font-bold">OUR POPULAR PROJECTS</h2>
       </div>
 
-      <div className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-evenly">
         {projects.map(
           (
             item // Fixed 'projects.map' reference

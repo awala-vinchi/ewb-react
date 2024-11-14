@@ -4,7 +4,7 @@ import {Heart, MessageCircle, Share2} from "lucide-react";
 
 export default function News() {
   return (
-    <section className="py-16 w-full flex flex-col items-center justify-center text-neutral-600 bg-stone-100">
+    <section className="py-16 w-full gap-6 flex flex-col items-center justify-center text-neutral-600 bg-stone-100">
       <div className="text-center">
         <h2 className="text-3xl font-bold">OUR LATEST NEWS</h2>
         <p className="text-md ">Blog Posts;</p>
