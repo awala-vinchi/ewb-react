@@ -43,7 +43,7 @@ export default function Project() {
         <h2 className="text-3xl font-bold">OUR POPULAR PROJECTS</h2>
       </div>
 
-      <div className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-evenly">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-evenly">
         {projects.map(
           (
             item // Fixed 'projects.map' reference

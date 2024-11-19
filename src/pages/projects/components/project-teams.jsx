@@ -9,7 +9,7 @@ const volunteers = [
     img: "path-to-davis-image", // Replace with actual image path
   },
   {
-    name: "Jenny White",
+    name: "Dr.  Fred Owusu-Nimo",
     role: "Volunteer",
     description:
       "Esse sociosqu! Nec leo laboriosam molestias. Felis eligen disu scipit.",
@@ -31,6 +31,7 @@ export default function project_teams() {
         <h2 className="text-3xl font-bold">OUR PROJECTS</h2>
         <p className="text-md ">Meet our Team ;</p>
       </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
       <div className="max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
         {/* Image */}
         <img
