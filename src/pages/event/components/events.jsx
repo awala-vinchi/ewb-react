@@ -36,10 +36,7 @@ export default function EventCard() {
 
   return (
     <section className="py-16 w-full flex flex-col items-center justify-center text-neutral-600 bg-stone-100">
-      <div className="relative text-center z-10 px-4 mb-6">
-        <h2 className="text-3xl font-bold">OUR EVENTS</h2>
-        <p className="text-md mt-2">Discover exciting upcoming events!</p>
-      </div>
+      
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
         {eventData &&
           eventData.map((event, index) => (
@@ -53,7 +50,7 @@ export default function EventCard() {
                       "https://via.placeholder.com/300"
                     }
                     alt={event.title || "Event Image"}
-                    className="h-48 w-full object-cover transition-transform duration-500"
+                    className="h-48 w-full object-cover transition-transform duration-500 "
                   />
                   {/* Date Badge */}
                   <div className="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-md shadow-lg text-center">
@@ -82,11 +79,6 @@ export default function EventCard() {
               </Link>
             </article>
           ))}
-      </div>
-      <div className="mt-6">
-        <button className="bg-blue-500 w-[10rem] text-white hover:bg-blue-600 mt-6 px-4 py-2 rounded-md border hover:border-blue-500 hover:shadow-md transition-all duration-300 ease-in-out">
-          All Events
-        </button>
       </div>
     </section>
   );

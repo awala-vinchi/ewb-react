@@ -7,6 +7,7 @@ import Partner from "../../pages/home/components/partner";
 import News from "../../pages/home/components/news";
 import Events  from "../../pages/home/components/events";
 import Donate from "../../pages/home/components/donate";
+import Activities from "../../pages/home/components/activities";
 
 
 
@@ -15,6 +16,7 @@ export default function Home() {
     <>
       <Hero />
       <AboutUs />
+      <Activities />
       <Partner />
       <Projects />
       <CallToAction />
