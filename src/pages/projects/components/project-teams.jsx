@@ -6,20 +6,25 @@ export default function Project() {
   const [projectData, setProject] = useState(null);
 
   async function getProject() {
-    const data = await client.fetch(`*[_type == "project"]{
-          title,
-          location,
-          description,
-         slug{
-         current
-         },
-         mainImage{
-          asset ->{
-          url}
-          }
-        }`);
-
-    setProject(data);
+    try {
+      const data = await client.fetch(`*[_type == "project"]{
+        title,
+        location,
+        projectCompleted, // Fetch the progress percentage
+        slug {
+          current
+        },
+        mainImage {
+          asset -> {
+            url
+          },
+          alt
+        }
+      }`);
+      setProject(data);
+    } catch (error) {
+      console.error("Error fetching project data:", error);
+    }
   }
 
   useEffect(() => {
@@ -28,27 +33,17 @@ export default function Project() {
 
   return (
     <section className="bg-stone-100 flex flex-col items-center justify-center text-neutral-600 gap-6 py-16 px-6">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold">OUR PROJECTS</h2>
-        <p className="text-md ">Meet our Team ;</p>
-      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {projectData &&
-          projectData.map((project, index) => (
-            <article>
-              <Link
-                to={`/projects/${project.slug.current}`}
-                key={project.slug.current}
-              >
-                <div
-                  className="max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200"
-                  key={index}
-                >
+          projectData.map((project) => (
+            <article key={project.slug.current}>
+              <Link to={`/projects/${project.slug.current}`}>
+                <div className="max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
                   {/* Image */}
                   <img
                     className="w-full h-48 object-cover"
-                    src={project.mainImage.asset.url} // Replace with the image URL you want
-                    alt={project.mainImage.alt}
+                    src={project.mainImage?.asset?.url}
+                    alt={project.mainImage?.alt || "Project Image"}
                   />
 
                   {/* Content */}
@@ -63,17 +58,17 @@ export default function Project() {
                       {project.location}
                     </h4>
 
-                    <p className="text-sm mb-4">{project.description}</p>
-
                     {/* Progress Bar */}
                     <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
                       <div
                         className="bg-blue-500 h-3 rounded-full"
-                        style={{ width: "70%" }}
+                        style={{ width: `${project.projectCompleted || 0}%` }}
                       ></div>
                     </div>
                     <p className="text-sm text-gray-600 mb-4">
-                      {project.projectCompleted}
+                      {project.projectCompleted
+                        ? `${project.projectCompleted}% Completed`
+                        : "Progress not available"}
                     </p>
 
                     {/* Buttons */}

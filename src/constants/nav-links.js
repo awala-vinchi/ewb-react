@@ -4,4 +4,5 @@ export const NavLinks = [
   { name: "Projects", path: "/projects", id: 5 },
   { name: "Event", path: "/event", id: 3 },
   { name: "Blog", path: "/blog", id: 4 },
+  { name: "Contact", path: "/contact", id: 5 },
 ];

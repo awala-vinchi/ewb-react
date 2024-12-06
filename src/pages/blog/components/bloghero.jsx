@@ -18,8 +18,8 @@ export default function CharitySection() {
 
       {/* Content */}
       <div className="relative text-center z-10 px-4">
-        <h2 className="text-3xl font-bold mb-4">OUR PROJECTS</h2>
-        <p className="text-md">Impacting Lives, changing Communities;</p>
+        <h2 className="text-3xl font-bold mb-4">OUR LATEST NEWS</h2>
+        <p className="text-md">Blog Post;</p>
       </div>
     </section>
   );

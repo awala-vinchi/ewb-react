@@ -1,12 +1,12 @@
-import React from 'react'
-import Hero from "../blog/components/hero_blog";
-import News from "../blog/components/news";
+import React from "react";
+import Bloghero from "../blog/components/bloghero";
+import Blogpage from "../blog/components/blogpage";
 
 export default function Blog() {
   return (
     <>
-      <Hero />
-      <News />
+      <Bloghero />
+      <Blogpage />
     </>
-  )
+  );
 }

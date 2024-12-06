@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
 import client from "../../../sanityClient";
 import { Heart, MessageCircle, Share2 } from "lucide-react";
 
-export default function News() {
+export default function Blog() {
   const [postData, setPost] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   async function getPost() {
     try {
@@ -19,12 +20,31 @@ export default function News() {
       setPost(data);
     } catch (error) {
       console.error("Error fetching posts:", error);
+      setError("Error fetching posts. Please try again later.");
+    } finally {
+      setIsLoading(false);
     }
   }
 
   useEffect(() => {
     getPost();
   }, []);
+
+  if (isLoading) {
+    return (
+      <section className="py-16 w-full gap-6 flex flex-col items-center justify-center text-neutral-600 bg-stone-100">
+        <p>Loading posts...</p>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="py-16 w-full gap-6 flex flex-col items-center justify-center text-neutral-600 bg-stone-100">
+        <p className="text-red-500">{error}</p>
+      </section>
+    );
+  }
 
   return (
     <section className="py-16 w-full gap-6 flex flex-col items-center justify-center text-neutral-600 bg-stone-100">
@@ -35,9 +55,9 @@ export default function News() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
         {postData &&
-          postData.map((post) => (
+          postData.slice(0, 3).map((post) => (
             <article key={post.slug.current} className="flex justify-center">
-              <Link to={`/projects/${post.slug.current}`}>
+              <Link to={`/blog/${post.slug.current}`}>
                 <div className="max-w-xs p-4 bg-white rounded-lg shadow-md">
                   {/* Image */}
                   <img
@@ -90,6 +110,13 @@ export default function News() {
               </Link>
             </article>
           ))}
+      </div>
+      <div className="mt-6">
+        <Link to="/blog">
+          <button className="bg-blue-500 w-[10rem] text-white hover:bg-blue-600 mt-6 px-4 py-2 rounded-md border hover:border-blue-500 hover:shadow-md transition-all duration-300 ease-in-out">
+            All Posts
+          </button>
+        </Link>
       </div>
     </section>
   );

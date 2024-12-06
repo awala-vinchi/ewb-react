@@ -17,9 +17,12 @@ export default function CharitySection() {
       <div className="absolute inset-0 bg-black opacity-60"></div>
 
       {/* Content */}
-      <div className="relative text-center z-10 px-4">
-        <h2 className="text-3xl font-bold">OUR BLOG</h2>
-        <p className="text-md mt-2">Discover exciting News</p>
+      <div className="container mx-auto text-center my-12">
+        <h2 className="text-3xl font-bold  mb-4">Contact Us</h2>
+        <p className="text-lg">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
+          tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+        </p>
       </div>
     </section>
   );

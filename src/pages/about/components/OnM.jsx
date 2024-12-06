@@ -52,13 +52,13 @@ export default function OnM() {
         </p>
       </div>
 
-      <div className="objectives text-justify flex flex-col justify-center items-center p-16">
+      <div className="objectives text-justify flex flex-col justify-center items-center p-16 gap-6">
         <div>
           <h2 className="text-3xl font-bold">OUR OBJECTIVES</h2>
           <p className="text-md text-center"> Our Strategic Priorities are;</p>
         </div>
 
-        <div className="p-5 space-y-4">
+        <div className=" space-y-4">
           {/* First grid with two columns */}
           <div className="grid grid-cols-2 gap-4">
             {objectives.slice(0, 2).map((item) => (
