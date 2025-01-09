@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import client from "../../../sanityClient";
 import { Clock, MapPin } from "lucide-react";
-import SanityBlockContent from "@sanity/block-content-to-react";
+import { PortableText } from "@portabletext/react";
 
 export default function SingleEvent() {
   const { slug } = useParams(); // Get the slug from the URL
@@ -47,18 +47,40 @@ export default function SingleEvent() {
     );
   }
 
-  const customSerializers = {
+  // Custom components for Portable Text
+  const components = {
+    block: {
+      h2: ({ children }) => (
+        <h2 className="text-2xl font-semibold my-6">{children}</h2>
+      ),
+      normal: ({ children }) => <p className="my-4 text-lg">{children}</p>,
+    },
+    marks: {
+      strong: ({ children }) => (
+        <strong className="font-bold">{children}</strong>
+      ),
+      em: ({ children }) => <em className="italic">{children}</em>,
+    },
+    list: {
+      bullet: ({ children }) => (
+        <ul className="list-disc ml-6 my-4">{children}</ul>
+      ),
+      number: ({ children }) => (
+        <ol className="list-decimal ml-6 my-4">{children}</ol>
+      ),
+    },
+    listItem: {
+      bullet: ({ children }) => <li className="mb-2">{children}</li>,
+      number: ({ children }) => <li className="mb-2">{children}</li>,
+    },
     types: {
-      block(props) {
-        const { children, style } = props;
-
-        if (style === "h2") {
-          return <h2 className="text-2xl font-semibold my-6">{children}</h2>;
-        }
-
-        // Default block style for paragraphs
-        return <p className="my-4 text-lg">{children}</p>; // Add margin between paragraphs
-      },
+      image: ({ value }) => (
+        <img
+          src={value.asset.url}
+          alt={value.alt || "Embedded Image"}
+          className="my-6 rounded-lg shadow-md w-full"
+        />
+      ),
     },
   };
 
@@ -88,12 +110,9 @@ export default function SingleEvent() {
 
       {/* Event Description */}
       <div className="w-full max-w-3xl px-4">
-        <SanityBlockContent
-          blocks={event.body}
-          projectId="ltigqay9"
-          dataset="production"
-          serializers={customSerializers}
-        />
+        {event.body && (
+          <PortableText value={event.body} components={components} />
+        )}
       </div>
 
       {/* Flyer (Optional) */}

@@ -7,7 +7,7 @@ import Projects from "./pages/projects/projects";
 import NavBar from "./components/nav-bar";
 import Footer from "./components/footer";
 import NotFound from "./components/not-found";
-import SingleBlogPost from "./pages/blog/singleblogpage/singleblog"; // Ensure correct import
+import SingleBlogPost from "./pages/blog/singleblogpage/singleblog";
 import SingleEvent from "./pages/event/single-event/single-event";
 import SingleProject from "./pages/projects/single-project/single-project";
 import Contact from "./pages/contact/contact";

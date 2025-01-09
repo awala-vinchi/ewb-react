@@ -10,12 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@base-sdk/base": "^0.1.8",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@portabletext/react": "^3.1.0",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^6.22.5",
     "fontawesome": "^5.6.3",
+    "googleapis": "^144.0.0",
     "lucide-react": "^0.453.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

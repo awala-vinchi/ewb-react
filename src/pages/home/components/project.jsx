@@ -31,13 +31,17 @@ export default function Project() {
     <section className="w-full py-24 flex flex-col items-center justify-center">
       <div className="text-neutral-600 text-center p-10">
         <h2 className="text-3xl font-bold">OUR POPULAR PROJECTS</h2>
+        <p className="text-md mt-2">Discover exciting upcoming events!</p>
       </div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 justify-center items-center">
         {projectData &&
           projectData.slice(0, 3).map((project) => (
             <article key={project.slug.current}>
-              <Link to={`/projects/${project.slug.current}`}>
+              <Link
+                to={`/projects/${project.slug.current}`}
+                onClick={() => window.scrollTo(0, 0)}
+              >
                 <div className="relative group h-96 w-72 overflow-hidden rounded-lg shadow-lg mx-auto">
                   <img
                     src={project.mainImage.asset.url} // Replace with the image URL you want
@@ -63,16 +67,8 @@ export default function Project() {
       </div>
 
       <div className="mt-6">
-        <Link to="/projects">
-          <button
-            onClick={() =>
-              window.scrollTo({
-                top: document.body.scrollHeight,
-                behavior: "smooth",
-              })
-            }
-            className="bg-blue-500 w-[10rem] text-white hover:bg-blue-600 mt-6 px-4 py-2 rounded-md border hover:border-blue-500 hover:shadow-md transition-all duration-300 ease-in-out"
-          >
+        <Link to="/projects" onClick={() => window.scrollTo(0, 0)}>
+          <button className="bg-blue-500 w-[10rem] text-white hover:bg-blue-600 mt-6 px-4 py-2 rounded-md border hover:border-blue-500 hover:shadow-md transition-all duration-300 ease-in-out">
             All Projects
           </button>
         </Link>

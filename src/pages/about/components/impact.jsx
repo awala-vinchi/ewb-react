@@ -1,9 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Img1 from "../../../assets/images/1.jpg";
 
 export default function OurImpact() {
   return (
     <section className="py-16 bg-gray-100 text-neutral-600">
+      {/* Section Header */}
       <div className="container mx-auto px-6 text-center mb-12">
         <h2 className="text-3xl font-bold mb-4">Our Impact</h2>
         <p className="text-lg">
@@ -17,26 +19,23 @@ export default function OurImpact() {
         {/* Impact Card 1 */}
         <div className="bg-white shadow-lg rounded-lg p-8 text-center">
           <h3 className="text-4xl font-bold text-blue-500 mb-4">500+</h3>
-          <p className="text-xl mb-4">
-            Clean Water Projects Completed
-          </p>
+          <p className="text-xl mb-4">Clean Water Projects Completed</p>
           <p className="text-gray-500">
             We have implemented over 500 clean water projects in rural areas,
             providing access to safe drinking water for thousands of people.
           </p>
         </div>
 
-        {/* Impact Card 2 */}
-        <div className="bg-white shadow-lg rounded-lg p-8 text-center relative">
-          {/* Background Image */}
+        {/* Image Card */}
+        <div className="relative overflow-hidden rounded-lg shadow-lg">
           <img
             src={Img1}
-            alt="Project Image"
-            className="w-full h-full object-cover rounded-lg absolute inset-0"
+            alt="Project Impact"
+            className="w-full h-full object-cover"
           />
         </div>
 
-        {/* Impact Card 3 */}
+        {/* Impact Card 2 */}
         <div className="bg-white shadow-lg rounded-lg p-8 text-center">
           <h3 className="text-4xl font-bold text-blue-500 mb-4">200+</h3>
           <p className="text-xl mb-4">Volunteers Mobilized</p>
@@ -46,15 +45,16 @@ export default function OurImpact() {
           </p>
         </div>
 
-        <div className="bg-white shadow-lg rounded-lg p-8 text-center relative">
-          {/* Background Image */}
+        {/* Image Card */}
+        <div className="relative overflow-hidden rounded-lg shadow-lg">
           <img
             src={Img1}
-            alt="Project Image"
-            className="w-full h-full object-cover rounded-lg absolute inset-0"
+            alt="Volunteer Impact"
+            className="w-full h-full object-cover"
           />
         </div>
-        {/* Impact Card 5 */}
+
+        {/* Impact Card 3 */}
         <div className="bg-white shadow-lg rounded-lg p-8 text-center">
           <h3 className="text-4xl font-bold text-blue-500 mb-4">1M+</h3>
           <p className="text-xl mb-4">Trees Planted</p>
@@ -64,21 +64,23 @@ export default function OurImpact() {
           </p>
         </div>
 
-        <div className="bg-white shadow-lg rounded-lg p-8 text-center relative">
-          {/* Background Image */}
+        {/* Image Card */}
+        <div className="relative overflow-hidden rounded-lg shadow-lg">
           <img
             src={Img1}
-            alt="Project Image"
-            className="w-full h-full object-cover rounded-lg absolute inset-0"
+            alt="Environmental Impact"
+            className="w-full h-full object-cover"
           />
         </div>
       </div>
 
       {/* Call to Action */}
       <div className="text-center mt-12">
-        <button className="bg-blue-500 text-white text-lg px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition-all duration-300 ease-in-out">
-          Get Involved and Make a Difference
-        </button>
+        <Link to="/get-involved" onClick={() => window.scrollTo(0, 0)}>
+          <button className="bg-blue-500 text-white text-lg px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition-all duration-300 ease-in-out">
+            Get Involved and Make a Difference
+          </button>
+        </Link>
       </div>
     </section>
   );

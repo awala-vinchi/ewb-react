@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import client from "../../../sanityClient";
 import { Heart, MessageCircle, Share2 } from "lucide-react";
-import BlockContent from "@sanity/block-content-to-react";
+import { PortableText } from "@portabletext/react";
 
 export default function SinglePost() {
   const { slug } = useParams(); // Get the post slug from URL
@@ -46,6 +46,48 @@ export default function SinglePost() {
     );
   }
 
+  // Custom components for Portable Text
+  const components = {
+    block: {
+      h1: ({ children }) => (
+        <h1 className="text-3xl font-bold mb-4">{children}</h1>
+      ),
+      h2: ({ children }) => (
+        <h2 className="text-2xl font-semibold mb-4">{children}</h2>
+      ),
+      normal: ({ children }) => (
+        <p className="text-lg my-4 text-gray-700">{children}</p>
+      ),
+    },
+    marks: {
+      strong: ({ children }) => (
+        <strong className="font-bold">{children}</strong>
+      ),
+      em: ({ children }) => <em className="italic">{children}</em>,
+    },
+    list: {
+      bullet: ({ children }) => (
+        <ul className="list-disc ml-6 my-4">{children}</ul>
+      ),
+      number: ({ children }) => (
+        <ol className="list-decimal ml-6 my-4">{children}</ol>
+      ),
+    },
+    listItem: {
+      bullet: ({ children }) => <li className="mb-2">{children}</li>,
+      number: ({ children }) => <li className="mb-2">{children}</li>,
+    },
+    types: {
+      image: ({ value }) => (
+        <img
+          src={value.asset.url}
+          alt={value.alt || "Embedded Image"}
+          className="my-6 rounded-lg shadow-md w-full"
+        />
+      ),
+    },
+  };
+
   return (
     <section className="py-16 px-4 w-full bg-stone-100 text-neutral-800">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
@@ -81,13 +123,7 @@ export default function SinglePost() {
           {/* Body */}
           <div className="mt-6">
             {post.body && (
-              <div>
-                <BlockContent
-                  blocks={post.body}
-                  projectId="your-project-id" // Replace with your Sanity project ID
-                  dataset="your-dataset" // Replace with your dataset name
-                />
-              </div>
+              <PortableText value={post.body} components={components} />
             )}
           </div>
 

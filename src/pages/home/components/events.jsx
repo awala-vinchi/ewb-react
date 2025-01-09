@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import client from "../../../sanityClient";
 import { Clock, MapPin } from "lucide-react";
-import Allevents from "../../event/event"
 
 export default function EventCard() {
   const [eventData, setEvent] = useState(null);
-  const [error, setError] = useState(null); // State to track any errors
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   async function getEvent() {
+    setLoading(true);
     try {
       const data = await client.fetch(`*[_type == "event"]{
           title,
@@ -27,9 +28,11 @@ export default function EventCard() {
           }
         }`);
       setEvent(data);
-    } catch (error) {
-      setError("Error fetching event data.");
-      console.error("Error fetching event data:", error);
+      setError(null);
+    } catch (err) {
+      setError("Failed to fetch events. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -43,16 +46,24 @@ export default function EventCard() {
         <h2 className="text-3xl font-bold">OUR EVENTS</h2>
         <p className="text-md mt-2">Discover exciting upcoming events!</p>
       </div>
+      {loading && (
+        <div className="text-center text-gray-500 font-semibold">
+          <p>Loading events...</p>
+        </div>
+      )}
       {error && (
         <div className="text-center text-red-500 font-semibold">
           <p>{error}</p>
         </div>
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-        {eventData && eventData.length > 0 ? (
+        {eventData &&
           eventData.slice(0, 3).map((event) => (
             <article key={event.slug.current}>
-              <Link to={`/events/${event.slug.current}`}>
+              <Link
+                to={`/events/${event.slug.current}`}
+                onClick={() => window.scrollTo(0, 0)}
+              >
                 <div className="relative rounded-lg overflow-hidden shadow-lg group bg-gray-900 text-white">
                   {/* Background Image */}
                   <img
@@ -89,13 +100,11 @@ export default function EventCard() {
                 </div>
               </Link>
             </article>
-          ))
-        ) : (
-          <p>No events available at the moment.</p>
-        )}
+          ))}
       </div>
+
       <div className="mt-6">
-        <Link to="/event">
+        <Link to="/event" onClick={() => window.scrollTo(0, 0)}>
           <button className="bg-blue-500 w-[10rem] text-white hover:bg-blue-600 mt-6 px-4 py-2 rounded-md border hover:border-blue-500 hover:shadow-md transition-all duration-300 ease-in-out">
             All Events
           </button>

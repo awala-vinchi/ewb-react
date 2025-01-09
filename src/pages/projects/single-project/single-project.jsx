@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import client from "../../../sanityClient";
-import SanityBlockContent from "@sanity/block-content-to-react";
+import { PortableText } from "@portabletext/react";
 
 export default function SingleProject() {
   const { slug } = useParams(); // Access the slug from the route
@@ -38,18 +38,41 @@ export default function SingleProject() {
     fetchSingleProject();
   }, [slug]);
 
-  const customSerializers = {
+  // Custom components for Portable Text
+  const components = {
+    block: {
+      h1: ({ children }) => (
+        <h1 className="text-3xl font-bold mb-4">{children}</h1>
+      ),
+      h2: ({ children }) => (
+        <h2 className="text-2xl font-semibold my-6">{children}</h2>
+      ),
+      normal: ({ children }) => <p className="my-4 text-lg">{children}</p>,
+    },
+    marks: {
+      strong: ({ children }) => (
+        <strong className="font-bold">{children}</strong>
+      ),
+      em: ({ children }) => <em className="italic">{children}</em>,
+    },
+    list: {
+      bullet: ({ children }) => <ul className="list-disc ml-6">{children}</ul>,
+      number: ({ children }) => (
+        <ol className="list-decimal ml-6">{children}</ol>
+      ),
+    },
+    listItem: {
+      bullet: ({ children }) => <li className="mb-2">{children}</li>,
+      number: ({ children }) => <li className="mb-2">{children}</li>,
+    },
     types: {
-      block(props) {
-        const { children, style } = props;
-
-        if (style === "h2") {
-          return <h2 className="text-2xl font-semibold my-6">{children}</h2>;
-        }
-
-        // Default block style for paragraphs
-        return <p className="my-4 text-lg">{children}</p>; // Add margin between paragraphs
-      },
+      image: ({ value }) => (
+        <img
+          src={value.asset.url}
+          alt={value.alt || "Project Image"}
+          className="w-full h-auto rounded-lg my-6"
+        />
+      ),
     },
   };
 
@@ -71,14 +94,9 @@ export default function SingleProject() {
             <strong>Percentage Completed:</strong> {project.projectCompleted}
           </p>
 
-          <p className="text-gray-600 mb-4">
-            <SanityBlockContent
-              blocks={project.body}
-              projectId="ltigqay9"
-              dataset="production"
-              serializers={customSerializers}
-            />
-          </p>
+          <div className="text-gray-600 mb-4">
+            <PortableText value={project.body} components={components} />
+          </div>
 
           {/* Gallery Section */}
           {project.galleryImages && project.galleryImages.length > 0 && (

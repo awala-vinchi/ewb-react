@@ -1,32 +1,48 @@
 import React from "react";
-
 import ImgDonate from "../../../assets/images/donate.jpg";
+import { Trophy, User, Globe } from "lucide-react";
 
-export default function CharitySection() {
+export default function Statistics() {
   return (
-    <section className="relative w-full h-[400px] flex items-center justify-center text-white">
+    <section className="relative w-full h-[300px] flex items-center justify-center">
       {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-      >
+      <div className="absolute inset-0 bg-cover bg-center">
         <img
-          className="w-full h-full object-top"
-          src={ImgDonate}
+          className="w-full h-full object-cover object-top"
+          src={ImgDonate} // Use your desired image here
           alt="Donate to charity"
         />
       </div>
+
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black opacity-60"></div>
 
-      {/* Content */}
-      <div className="relative text-center z-10 px-4">
-        <p className="text-sm text-blue-500 font-bold mb-2">GET INVOLVE</p>
-        <h2 className="text-3xl font-bold mb-4">
-          We've Funded 12,503 Charity Projects For 25M People Around The World
-        </h2>
-        <button className="bg-blue-400 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-800 transition">
-          Get Involve Now
-        </button>
+      {/* Stats Container */}
+      <div className="relative w-full bg-black bg-opacity-70 py-6 flex items-center justify-evenly px-8 text-white">
+        {/* Each Stat */}
+        <div className="flex flex-col items-center">
+          <Trophy className="w-10 h-10 text-yellow-400" />
+          <h2 className="text-2xl font-bold">2250+</h2>
+          <p className="text-sm">Causes Complete</p>
+        </div>
+
+        <div className="flex flex-col items-center">
+          <User className="w-10 h-10 text-yellow-400" />
+          <h2 className="text-2xl font-bold">3255+</h2>
+          <p className="text-sm">Saved Lives</p>
+        </div>
+
+        <div className="flex flex-col items-center">
+          <Trophy className="w-10 h-10 text-yellow-400" />
+          <h2 className="text-2xl font-bold">1250+</h2>
+          <p className="text-sm">Volunteers</p>
+        </div>
+
+        <div className="flex flex-col items-center">
+          <Globe className="w-10 h-10 text-yellow-400" />
+          <h2 className="text-2xl font-bold">3546+</h2>
+          <p className="text-sm">Church Places</p>
+        </div>
       </div>
     </section>
   );
