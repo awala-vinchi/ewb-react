@@ -26,7 +26,11 @@ export default function SingleEvent() {
           asset -> {
             url
           }
-        }
+        },
+        isRecurring,
+        dayOfWeek,
+        recurrenceType,
+        programDate
       }`;
       const eventData = await client.fetch(query, { slug });
       setEvent(eventData);
@@ -47,41 +51,27 @@ export default function SingleEvent() {
     );
   }
 
-  // Custom components for Portable Text
-  const components = {
-    block: {
-      h2: ({ children }) => (
-        <h2 className="text-2xl font-semibold my-6">{children}</h2>
-      ),
-      normal: ({ children }) => <p className="my-4 text-lg">{children}</p>,
-    },
-    marks: {
-      strong: ({ children }) => (
-        <strong className="font-bold">{children}</strong>
-      ),
-      em: ({ children }) => <em className="italic">{children}</em>,
-    },
-    list: {
-      bullet: ({ children }) => (
-        <ul className="list-disc ml-6 my-4">{children}</ul>
-      ),
-      number: ({ children }) => (
-        <ol className="list-decimal ml-6 my-4">{children}</ol>
-      ),
-    },
-    listItem: {
-      bullet: ({ children }) => <li className="mb-2">{children}</li>,
-      number: ({ children }) => <li className="mb-2">{children}</li>,
-    },
-    types: {
-      image: ({ value }) => (
-        <img
-          src={value.asset.url}
-          alt={value.alt || "Embedded Image"}
-          className="my-6 rounded-lg shadow-md w-full"
-        />
-      ),
-    },
+  // Function to get the day of the week from the dayOfWeek number
+  const getDayOfWeek = (dayIndex) => {
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    return days[dayIndex] || "Unknown Day";
+  };
+
+  // Function to format non-recurring event dates
+  const formatDate = (date) => {
+    const formattedDate = new Date(date).toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "short",
+    });
+    return formattedDate || ""; // Ensure it always returns a string
   };
 
   return (
@@ -129,9 +119,59 @@ export default function SingleEvent() {
 
       {/* Date Badge */}
       <div className="absolute top-16 right-16 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md">
-        <p className="text-2xl font-bold">{event.day || "N/A"}</p>
-        <p className="text-lg">{event.month || "N/A"}</p>
+        <p className="text-2xl font-bold">
+          {
+            event.isRecurring
+              ? getDayOfWeek(event.dayOfWeek) // For recurring events, show the day of the week
+              : event.programDate
+              ? formatDate(event.programDate).split(",")[0]
+              : "Date not available" // For non-recurring events, show the program date if available
+          }
+        </p>
+        <p className="text-lg">
+          {event.isRecurring
+            ? event.recurrenceType.charAt(0).toUpperCase() +
+              event.recurrenceType.slice(1) // Show recurrence type for recurring events
+            : event.programDate
+            ? formatDate(event.programDate).split(",")[1]?.trim() || ""
+            : "Date not available"}
+        </p>
       </div>
     </section>
   );
 }
+
+// Custom components for Portable Text
+const components = {
+  block: {
+    h2: ({ children }) => (
+      <h2 className="text-2xl font-semibold my-6">{children}</h2>
+    ),
+    normal: ({ children }) => <p className="my-4 text-lg">{children}</p>,
+  },
+  marks: {
+    strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+    em: ({ children }) => <em className="italic">{children}</em>,
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="list-disc ml-6 my-4">{children}</ul>
+    ),
+    number: ({ children }) => (
+      <ol className="list-decimal ml-6 my-4">{children}</ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }) => <li className="mb-2">{children}</li>,
+    number: ({ children }) => <li className="mb-2">{children}</li>,
+  },
+  types: {
+    image: ({ value }) => (
+      <img
+        src={value.asset.url}
+        alt={value.alt || "Embedded Image"}
+        className="my-6 rounded-lg shadow-md w-full"
+      />
+    ),
+  },
+};

@@ -1,8 +1,8 @@
 import React from "react";
 import { HandCoins, Leaf, LifeBuoy } from "lucide-react"; // Icons from lucide-react
+import { Link } from "react-router-dom";
 
 export default function OurActivity() {
- 
   const activities = [
     {
       icon: <HandCoins size={48} className="text-teal-400" />, // Fundraising icon
@@ -27,15 +27,15 @@ export default function OurActivity() {
   return (
     <section className="py-16 bg-white text-neutral-600">
       {/* Title Section */}
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold">OUR ACTIVITY</h2>
-        <p className="text-gray-500 text-lg">
+      <div className="text-center mb-12 px-4">
+        <h2 className="text-3xl font-bold lg:text-4xl">OUR ACTIVITY</h2>
+        <p className="text-gray-500 text-lg lg:text-xl">
           Increase in the awareness among people about various issues
         </p>
       </div>
 
       {/* Cards Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-16 lg:px-32">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4 md:px-16 lg:px-32">
         {activities.map((activity, index) => (
           <div
             key={index}
@@ -45,17 +45,17 @@ export default function OurActivity() {
             <div className="mb-4">{activity.icon}</div>
 
             {/* Title */}
-            <h3 className="text-xl font-semibold mb-2">
-              {activity.title}
-            </h3>
+            <h3 className="text-xl font-semibold mb-2">{activity.title}</h3>
 
             {/* Description */}
             <p className="text-gray-600">{activity.description}</p>
 
             {/* Button */}
-            <button className="mt-4 px-4 py-2 bg-teal-400 text-white rounded-md hover:bg-green-600">
-              Learn More
-            </button>
+            <Link to="/about" onClick={() => window.scrollTo(0, 0)}>
+              <button className="mt-4 px-4 py-2 bg-teal-400 text-white rounded-md hover:bg-green-600 transition duration-300">
+                Learn More
+              </button>
+            </Link>
           </div>
         ))}
       </div>

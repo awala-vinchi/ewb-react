@@ -6,7 +6,8 @@ import Page from "./components/page";
 import Histroy from "./components/history";
 import Team from "./components/team";
 import Impact from "../about/components/impact";
-import Help  from "../about/components/help";
+import Help from "../about/components/help";
+
 
 export default function About() {
   // Renamed About to AboutPage
@@ -17,7 +18,8 @@ export default function About() {
       <OnM />
       <Histroy />
       <Impact />
-      <Help />
+      {/* <Partner /> */}
+      {/* <Help /> */}
       <Team />
     </>
   );

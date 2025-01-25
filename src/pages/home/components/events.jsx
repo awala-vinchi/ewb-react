@@ -5,19 +5,19 @@ import { Clock, MapPin } from "lucide-react";
 
 export default function EventCard() {
   const [eventData, setEvent] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   async function getEvent() {
-    setLoading(true);
     try {
-      const data = await client.fetch(`*[_type == "event"]{
+      const data = await client.fetch(
+        `*[_type == "event" && (programDate >= now() || isRecurring == true)] {
           title,
-          day,
-          month,
+          programDate,
           time,
           venue,
           description,
+          isRecurring,
+          recurrenceType,
+          dayOfWeek,
           slug {
             current
           },
@@ -26,13 +26,24 @@ export default function EventCard() {
               url
             }
           }
-        }`);
-      setEvent(data);
-      setError(null);
-    } catch (err) {
-      setError("Failed to fetch events. Please try again later.");
-    } finally {
-      setLoading(false);
+        }`
+      );
+
+      // Sort events: Recurring events first, then by nearest programDate
+      const sortedData = data.sort((a, b) => {
+        // Recurring events have priority
+        if (a.isRecurring && !b.isRecurring) return -1;
+        if (!a.isRecurring && b.isRecurring) return 1;
+
+        // For non-recurring events, sort by programDate
+        const dateA = new Date(a.programDate);
+        const dateB = new Date(b.programDate);
+        return dateA - dateB;
+      });
+
+      setEvent(sortedData);
+    } catch (error) {
+      console.error("Error fetching event data:", error);
     }
   }
 
@@ -40,30 +51,41 @@ export default function EventCard() {
     getEvent();
   }, []);
 
+  // Function to get the day of the week from the dayOfWeek number
+  const getDayOfWeek = (dayIndex) => {
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    return days[dayIndex] || "Unknown Day";
+  };
+
+  // Function to format non-recurring event dates
+  const formatDate = (date) => {
+    const formattedDate = new Date(date).toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "short",
+    });
+    return formattedDate || ""; // Ensure it always returns a string
+  };
+
   return (
     <section className="py-16 w-full flex flex-col items-center justify-center text-neutral-600 bg-stone-100">
-      <div className="relative text-center z-10 px-4 mb-6">
-        <h2 className="text-3xl font-bold">OUR EVENTS</h2>
-        <p className="text-md mt-2">Discover exciting upcoming events!</p>
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold">Upcoming Events</h2>
+        <p className="text-md text-gray-500">Don't miss out on our events!</p>
       </div>
-      {loading && (
-        <div className="text-center text-gray-500 font-semibold">
-          <p>Loading events...</p>
-        </div>
-      )}
-      {error && (
-        <div className="text-center text-red-500 font-semibold">
-          <p>{error}</p>
-        </div>
-      )}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-        {eventData &&
+        {eventData && eventData.length > 0 ? (
           eventData.slice(0, 3).map((event) => (
             <article key={event.slug.current}>
-              <Link
-                to={`/events/${event.slug.current}`}
-                onClick={() => window.scrollTo(0, 0)}
-              >
+              <Link to={`/events/${event.slug.current}`}>
                 <div className="relative rounded-lg overflow-hidden shadow-lg group bg-gray-900 text-white">
                   {/* Background Image */}
                   <img
@@ -76,8 +98,21 @@ export default function EventCard() {
                   />
                   {/* Date Badge */}
                   <div className="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-md shadow-lg text-center">
-                    <p className="text-lg font-bold">{event.day || "N/A"}</p>
-                    <p className="text-sm">{event.month || "N/A"}</p>
+                    <p className="text-lg font-bold">
+                      {event.isRecurring
+                        ? getDayOfWeek(event.dayOfWeek)
+                        : event.programDate
+                        ? formatDate(event.programDate).split(",")[0]
+                        : "Date not available"}
+                    </p>
+                    <p className="text-sm">
+                      {event.isRecurring
+                        ? event.recurrenceType.charAt(0).toUpperCase() +
+                          event.recurrenceType.slice(1)
+                        : event.programDate
+                        ? formatDate(event.programDate).split(",")[1]?.trim()
+                        : "Date not available"}
+                    </p>
                   </div>
                   {/* Content */}
                   <div className="p-6">
@@ -100,15 +135,12 @@ export default function EventCard() {
                 </div>
               </Link>
             </article>
-          ))}
-      </div>
-
-      <div className="mt-6">
-        <Link to="/event" onClick={() => window.scrollTo(0, 0)}>
-          <button className="bg-blue-500 w-[10rem] text-white hover:bg-blue-600 mt-6 px-4 py-2 rounded-md border hover:border-blue-500 hover:shadow-md transition-all duration-300 ease-in-out">
-            All Events
-          </button>
-        </Link>
+          ))
+        ) : (
+          <div className="text-center text-gray-500">
+            <p>No upcoming events at the moment. Check back soon!</p>
+          </div>
+        )}
       </div>
     </section>
   );

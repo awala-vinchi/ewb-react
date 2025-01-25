@@ -10,12 +10,14 @@ export default function Blog() {
 
   async function getPost() {
     try {
-      const data = await client.fetch(`*[_type == "post"]{
+      const data =
+        await client.fetch(`*[_type == "post"] | order(publishedAt desc) {
         title,
         description,
         subHeading,
         slug { current },
-        mainImage { asset-> { url }, alt }
+        mainImage { asset-> { url }, alt },
+        publishedAt
       }`);
       setPost(data);
     } catch (error) {
@@ -30,38 +32,37 @@ export default function Blog() {
     getPost();
   }, []);
 
-  if (isLoading) {
-    return (
-      <section className="py-16 w-full gap-6 flex flex-col items-center justify-center text-neutral-600 bg-stone-100">
-        <p>Loading posts...</p>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section className="py-16 w-full gap-6 flex flex-col items-center justify-center text-neutral-600 bg-stone-100">
-        <p className="text-red-500">{error}</p>
-      </section>
-    );
-  }
-
   return (
-    <section className="py-16 w-full gap-6 flex flex-col items-center justify-center text-neutral-600 bg-stone-100">
+    <section className="py-16 w-full flex flex-col items-center justify-center text-neutral-600 bg-stone-100">
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold">OUR LATEST NEWS</h2>
+        <p className="text-md">Blog Posts</p>
+      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-        {postData &&
-          postData.slice(0, 3).map((post) => (
+      {isLoading && <p>Loading posts...</p>}
+
+      {error && (
+        <div className="text-center text-red-500 font-semibold">
+          <p>{error}</p>
+        </div>
+      )}
+
+      {!isLoading && !error && postData && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+          {postData.map((post) => (
             <article key={post.slug.current} className="flex justify-center">
-              <Link to={`/blog/${post.slug.current}`}>
+              <Link
+                to={`/blog/${post.slug.current}`}
+                onClick={() => window.scrollTo(0, 0)}
+              >
                 <div className="max-w-xs p-4 bg-white rounded-lg shadow-md">
                   {/* Image */}
                   <img
                     src={
-                      post.mainImage.asset.url ||
+                      post.mainImage?.asset?.url ||
                       "https://via.placeholder.com/300"
                     }
-                    alt={post.mainImage.alt || `Image for ${post.title}`}
+                    alt={post.mainImage?.alt || `Image for ${post.title}`}
                     className="w-full h-40 bg-gray-200 rounded-md mb-4"
                   />
 
@@ -75,7 +76,7 @@ export default function Blog() {
 
                   {/* Description */}
                   <p className="text-sm text-gray-600 mb-4">
-                    {post.description}
+                    {post.description || "No description available."}
                   </p>
 
                   {/* Buttons */}
@@ -106,7 +107,8 @@ export default function Blog() {
               </Link>
             </article>
           ))}
-      </div>
+        </div>
+      )}
     </section>
   );
 }

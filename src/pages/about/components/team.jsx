@@ -9,7 +9,7 @@ export default function Team() {
   async function getTeam() {
     try {
       const data = await client.fetch(
-        `*[_type == "team"]{
+        `*[_type == "team"] | order(order asc) {
           name,
           position,
           bio,
@@ -21,9 +21,6 @@ export default function Team() {
               url
             }
           },
-          linkedinProfile,
-          facebookProfile,
-          xProfile
         }`
       );
       setTeam(data);
@@ -100,12 +97,13 @@ export default function Team() {
             Embark on a transformative journey with us. Join the team shaping
             the future of wellness innovation.
           </p>
-          <a
-            href="#join-team" // Link to the join team section
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-          >
-            Join Now
-          </a>
+          <div className="text-center mt-12">
+            <Link to="/membership" onClick={() => window.scrollTo(0, 0)}>
+              <button className="bg-blue-500 text-white text-lg px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition-all duration-300 ease-in-out">
+                Join Now
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

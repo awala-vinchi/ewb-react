@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MapPin, AtSign, PhoneCall } from "lucide-react";
+
 
 // Contact Form Component
 export default function ContactPage() {
@@ -25,10 +25,11 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="contact-page bg-blue-50 py-16 text-neutral-600">
+    <section className="contact-page bg-blue-50 py-16 text-neutral-600 items-center">
       <div className="container mx-auto px-6">
+        <h3 className="text-xl font-semibold  ml-10">Get in Touch and Partner with Us </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="p-8">
+          <div className="p-6">
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <input
@@ -109,45 +110,7 @@ export default function ContactPage() {
         </div>
       </div>
 
-      {/* Footer Section */}
-      <div className="container mx-auto py-8 px-16">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div className="bg-teal-100 p-6 rounded-3xl shadow-lg flex items-center">
-            <div className="text-teal-500 text-3xl mr-4">
-              <PhoneCall size="40" />
-            </div>
-            <div>
-              <h4 className="font-semibold text-xl">(+876) 765 665</h4>
-              <p className="text-gray-600">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </p>
-            </div>
-          </div>
-          <div className="bg-teal-100 p-6 rounded-3xl shadow-lg flex items-center">
-            <div className="text-teal-500 text-3xl mr-4">
-              <AtSign size="40" />
-            </div>
-            <div>
-              <h4 className="font-semibold text-xl">mail@influenca.id</h4>
-              <p className="text-gray-600">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </p>
-            </div>
-          </div>
-          <div className="bg-teal-100 p-6 rounded-2xl shadow-lg flex items-center">
-            <div className="text-teal-500 text-3xl mr-4">
-              <MapPin size="40" />
-            </div>
-            <div>
-              <h4 className="font-semibold text-xl">London Eye, London</h4>
-              <p className="text-gray-600">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
+     
       {/* Google Map Embed */}
       <div className="container mx-auto px-6 my-12">
         <iframe

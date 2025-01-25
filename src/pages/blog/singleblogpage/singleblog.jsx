@@ -127,30 +127,7 @@ export default function SinglePost() {
             )}
           </div>
 
-          {/* Social Actions */}
-          <div className="mt-6 flex space-x-4">
-            <button
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg flex items-center"
-              aria-label="Like this post"
-            >
-              <Heart className="mr-2" />
-              Like
-            </button>
-            <button
-              className="px-4 py-2 bg-green-500 text-white rounded-lg flex items-center"
-              aria-label="Comment on this post"
-            >
-              <MessageCircle className="mr-2" />
-              Comment
-            </button>
-            <button
-              className="px-4 py-2 bg-purple-500 text-white rounded-lg flex items-center"
-              aria-label="Share this post"
-            >
-              <Share2 className="mr-2" />
-              Share
-            </button>
-          </div>
+          
         </div>
       </div>
     </section>

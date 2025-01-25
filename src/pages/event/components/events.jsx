@@ -8,10 +8,10 @@ export default function EventCard() {
 
   async function getEvent() {
     try {
-      const data = await client.fetch(`*[_type == "event"]{
+      const data = await client.fetch(
+        `*[_type == "event" && programDate >= now()] | order(programDate asc){
           title,
-          day,
-          month,
+          programDate,
           time,
           venue,
           description,
@@ -23,7 +23,8 @@ export default function EventCard() {
               url
             }
           }
-        }`);
+        }`
+      );
       setEvent(data);
     } catch (error) {
       console.error("Error fetching event data:", error);
@@ -38,8 +39,8 @@ export default function EventCard() {
     <section className="py-16 w-full flex flex-col items-center justify-center text-neutral-600 bg-stone-100">
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-        {eventData &&
-          eventData.map((event, index) => (
+        {eventData && eventData.length > 0 ? (
+          eventData.map((event) => (
             <article key={event.slug.current}>
               <Link to={`/events/${event.slug.current}`}>
                 <div className="relative rounded-lg overflow-hidden shadow-lg group bg-gray-900 text-white">
@@ -50,12 +51,20 @@ export default function EventCard() {
                       "https://via.placeholder.com/300"
                     }
                     alt={event.title || "Event Image"}
-                    className="h-48 w-full object-cover transition-transform duration-500 "
+                    className="h-48 w-full object-cover transition-transform duration-500"
                   />
                   {/* Date Badge */}
                   <div className="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-md shadow-lg text-center">
-                    <p className="text-lg font-bold">{event.day || "N/A"}</p>
-                    <p className="text-sm">{event.month || "N/A"}</p>
+                    <p className="text-lg font-bold">
+                      {new Date(event.programDate).toLocaleDateString("en-US", {
+                        day: "2-digit",
+                      })}
+                    </p>
+                    <p className="text-sm">
+                      {new Date(event.programDate).toLocaleDateString("en-US", {
+                        month: "short",
+                      })}
+                    </p>
                   </div>
                   {/* Content */}
                   <div className="p-6">
@@ -78,7 +87,12 @@ export default function EventCard() {
                 </div>
               </Link>
             </article>
-          ))}
+          ))
+        ) : (
+          <div className="text-center text-gray-500">
+            <p>No upcoming events at the moment. Check back soon!</p>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -69,34 +69,26 @@ const contact = [
 export default function Footer() {
   return (
     <footer className="w-full py-16 bg-navy-blue text-neutral-200 text-sm">
-      {/* <div className="hero w-full h-96 bg-[url('/src/assets/images/6.jpg')] bg-cover bg-top relative mb-5">
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-      </div> */}
-
-      <div className="flex justify-around mb-10">
-
-        <div className="column_1  flex flex-col gap-3">
-          <h1 className="font-bold text-xl">GET IN TOUCH</h1>
-
-          <div className="">
+      <div className="flex flex-col sm:flex-row justify-around mb-10 gap-8 px-4">
+        <div className="column_1 flex flex-col gap-4">
+          <h1 className="font-bold text-lg sm:text-xl">GET IN TOUCH</h1>
+          <div>
             {contact.map((item) => (
               <div className="value mb-4" key={item.id}>
-                <div className="flex gap-2">
-                  <div className=" h-12 w-12 rounded-2xl flex  items-center justify-center text-white bg-blue-800">
+                <div className="flex items-start gap-3">
+                  <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full flex items-center justify-center text-white bg-blue-800">
                     {item.icon}
                   </div>
-
-                  <div className="">
-                    <h2 className="font-semibold mt-0 mb-0 ">{item.title}</h2>
+                  <div className="text-sm sm:text-base">
+                    <h2 className="font-semibold">{item.title}</h2>
                     {Array.isArray(item.text1) ? (
                       item.text1.map((line, index) => (
-                        <p key={index} className="mt-0">
+                        <p key={index} className="leading-tight">
                           {line}
-                          <br />
                         </p>
                       ))
                     ) : (
-                      <p className="mt-1">{item.text1}</p>
+                      <p>{item.text1}</p>
                     )}
                   </div>
                 </div>
@@ -105,20 +97,22 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="column_2 flex flex-col gap-3">
-          <h1 className="font-bold text-xl">GET CONNECTED</h1>
+        <div className="column_2 flex flex-col gap-4">
+          <h1 className="font-bold text-lg sm:text-xl">GET CONNECTED</h1>
           <div>
             {socials.map((item) => (
-            
-              <div className="flex items-center gap-4 mb-2" key={item.id}>
-                <div className="border-0 rounded-full p-3 bg-blue-500 text-white hover:bg-blue-800 hover:border-blue-500 hover:shadow-md transition-all duration-300">
+              <div className="flex items-center gap-3 mb-4" key={item.id}>
+                <div className="rounded-full p-2 sm:p-3 bg-blue-500 text-white hover:bg-blue-800 transition-all">
                   <a href={item.link}>{item.icon}</a>
                 </div>
                 <div className="flex flex-col">
-                  <a href={item.link} className="font-semibold mt-0 mb-0">
+                  <a href={item.link} className="font-semibold">
                     {item.title}
                   </a>
-                  <a href={item.link} className="text-blue-500 underline mt-0">
+                  <a
+                    href={item.link}
+                    className="text-blue-500 underline text-sm"
+                  >
                     {item.url}
                   </a>
                 </div>
@@ -127,16 +121,34 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="column_3 ">
-          <h1 className="font-bold text-xl">GET SUBSCRIBED</h1>
-          <p>
-            Don’t miss our future updates.<br></br>Get Subscribed today!
+        <div className="column_3 flex flex-col gap-4">
+          <h1 className="font-bold text-lg sm:text-xl">GET SUBSCRIBED</h1>
+          <p className="text-sm">
+            Don’t miss our future updates.
+            <br />
+            Get Subscribed today!
           </p>
+          <form>
+            <div className="mb-4">
+              <input
+                type="email"
+                placeholder="Your Email"
+                className="w-full p-2 border rounded-2xl shadow-lg text-sm"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition-all"
+            >
+              Subscribe
+            </button>
+          </form>
         </div>
       </div>
 
-      <div className="text-center justify-center pt-6 border-t w-[90%] mx-auto">
-        <small  className="">Copyright &copy; 2022 EWB-KNUST All Rights Reserved</small>
+      <div className="text-center mt-10 pt-6 border-t w-[90%] mx-auto">
+        <small>&copy; 2022 EWB-KNUST All Rights Reserved</small>
       </div>
     </footer>
   );

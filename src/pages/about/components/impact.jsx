@@ -76,7 +76,7 @@ export default function OurImpact() {
 
       {/* Call to Action */}
       <div className="text-center mt-12">
-        <Link to="/get-involved" onClick={() => window.scrollTo(0, 0)}>
+        <Link to="/contact" onClick={() => window.scrollTo(0, 0)}>
           <button className="bg-blue-500 text-white text-lg px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition-all duration-300 ease-in-out">
             Get Involved and Make a Difference
           </button>

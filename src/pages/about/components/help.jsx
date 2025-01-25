@@ -13,7 +13,7 @@ const helpOptions = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tenetur maxime commodo teneture.",
     icon: <FontAwesomeIcon icon={faUser} className="h-12 w-12 text-blue-500" />,
     buttonText: "Join Us Now",
-    link: "#volunteer", // Link to the section for volunteering
+    link: "/membership", // Link to the section for volunteering
   },
   {
     title: "Donate To Support",
@@ -23,7 +23,7 @@ const helpOptions = [
       <FontAwesomeIcon icon={faDonate} className="h-12 w-12 text-blue-500" />
     ),
     buttonText: "Donate Now",
-    link: "#donate", // Link to the donation section
+    link: "/contact", // Link to the donation section
   },
   {
     title: "Become A Partner",
@@ -33,7 +33,7 @@ const helpOptions = [
       <FontAwesomeIcon icon={faHandshake} className="h-12 w-12 text-blue-500" />
     ),
     buttonText: "Learn More",
-    link: "#partner", // Link to the partnership section
+    link: "/", // Link to the partnership section
   },
 ];
 
@@ -76,15 +76,7 @@ export default function HowYouCanHelp() {
         ))}
       </div>
 
-      {/* Call to Action */}
-      <div className="text-center mt-12">
-        <a
-          href="#get-involved"
-          className="bg-blue-500 text-white text-lg px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition-all duration-300 ease-in-out"
-        >
-          Get Involved Today
-        </a>
-      </div>
+      
     </section>
   );
 }
