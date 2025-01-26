@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Facebook,
   Instagram,
@@ -62,21 +62,56 @@ const contact = [
       "of Science and Technology,",
       "Kumasi, Ashanti Region, Ghana.",
     ],
-  }
+  },
 ];
 
-
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!email) {
+      setMessage("Please enter a valid email address.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "https://ewb-react-backend.onrender.com/subscribe",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
+
+
+      const data = await response.json();
+      if (response.ok) {
+        setMessage("Subscribed successfully!");
+        setEmail(""); // Clear the input field
+      } else {
+        setMessage(data.message || "Subscription failed");
+      }
+    } catch (error) {
+      setMessage("Error subscribing. Please try again later.");
+    }
+  };
+
   return (
     <footer className="w-full py-16 bg-navy-blue text-neutral-200 text-sm">
-      <div className="flex flex-col sm:flex-row justify-around mb-10 gap-8 px-4">
+      <div className="flex flex-col sm:flex-row justify-around mb-10 px-2">
         <div className="column_1 flex flex-col gap-4">
           <h1 className="font-bold text-lg sm:text-xl">GET IN TOUCH</h1>
           <div>
             {contact.map((item) => (
               <div className="value mb-4" key={item.id}>
                 <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full flex items-center justify-center text-white bg-blue-800">
+                  <div className="p-2 sm:p-3 rounded-full flex items-center justify-center text-white bg-blue-800">
                     {item.icon}
                   </div>
                   <div className="text-sm sm:text-base">
@@ -128,11 +163,13 @@ export default function Footer() {
             <br />
             Get Subscribed today!
           </p>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <input
                 type="email"
                 placeholder="Your Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full p-2 border rounded-2xl shadow-lg text-sm"
                 required
               />
@@ -144,6 +181,7 @@ export default function Footer() {
               Subscribe
             </button>
           </form>
+          {message && <p className="mt-4 text-center">{message}</p>}
         </div>
       </div>
 

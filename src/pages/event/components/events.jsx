@@ -9,12 +9,15 @@ export default function EventCard() {
   async function getEvent() {
     try {
       const data = await client.fetch(
-        `*[_type == "event" && programDate >= now()] | order(programDate asc){
+        `*[_type == "event" && (programDate >= now() || isRecurring == true)] {
           title,
           programDate,
           time,
           venue,
           description,
+          isRecurring,
+          recurrenceType,
+          dayOfWeek,
           slug {
             current
           },
@@ -25,7 +28,18 @@ export default function EventCard() {
           }
         }`
       );
-      setEvent(data);
+
+      // Sort events: Recurring events first, then by nearest programDate
+      const sortedData = data.sort((a, b) => {
+        if (a.isRecurring && !b.isRecurring) return -1;
+        if (!a.isRecurring && b.isRecurring) return 1;
+
+        const dateA = new Date(a.programDate);
+        const dateB = new Date(b.programDate);
+        return dateA - dateB;
+      });
+
+      setEvent(sortedData);
     } catch (error) {
       console.error("Error fetching event data:", error);
     }
@@ -35,16 +49,39 @@ export default function EventCard() {
     getEvent();
   }, []);
 
+  const getDayOfWeek = (dayIndex) => {
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    return days[dayIndex] || "Unknown Day";
+  };
+
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "short",
+    });
+  };
+
   return (
     <section className="py-16 w-full flex flex-col items-center justify-center text-neutral-600 bg-stone-100">
-      
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold">Upcoming Events</h2>
+        <p className="text-md text-gray-500">Don't miss out on our events!</p>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
         {eventData && eventData.length > 0 ? (
           eventData.map((event) => (
             <article key={event.slug.current}>
               <Link to={`/events/${event.slug.current}`}>
                 <div className="relative rounded-lg overflow-hidden shadow-lg group bg-gray-900 text-white">
-                  {/* Background Image */}
                   <img
                     src={
                       event.mainImage?.asset?.url ||
@@ -53,20 +90,23 @@ export default function EventCard() {
                     alt={event.title || "Event Image"}
                     className="h-48 w-full object-cover transition-transform duration-500"
                   />
-                  {/* Date Badge */}
                   <div className="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-md shadow-lg text-center">
                     <p className="text-lg font-bold">
-                      {new Date(event.programDate).toLocaleDateString("en-US", {
-                        day: "2-digit",
-                      })}
+                      {event.isRecurring
+                        ? getDayOfWeek(event.dayOfWeek)
+                        : event.programDate
+                        ? formatDate(event.programDate).split(",")[0]
+                        : "Date not available"}
                     </p>
                     <p className="text-sm">
-                      {new Date(event.programDate).toLocaleDateString("en-US", {
-                        month: "short",
-                      })}
+                      {event.isRecurring
+                        ? event.recurrenceType.charAt(0).toUpperCase() +
+                          event.recurrenceType.slice(1)
+                        : event.programDate
+                        ? formatDate(event.programDate).split(",")[1]?.trim()
+                        : "Date not available"}
                     </p>
                   </div>
-                  {/* Content */}
                   <div className="p-6">
                     <h3 className="text-xl font-bold mb-2">
                       {event.title || "Event Title"}

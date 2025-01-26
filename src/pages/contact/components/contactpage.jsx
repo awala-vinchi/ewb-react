@@ -27,7 +27,9 @@ export default function ContactPage() {
   return (
     <section className="contact-page bg-blue-50 py-16 text-neutral-600 items-center">
       <div className="container mx-auto px-6">
-        <h3 className="text-xl font-semibold  ml-10">Get in Touch and Partner with Us </h3>
+        <h3 className="text-xl font-semibold  ml-10">
+          Get in Touch and Partner with Us{" "}
+        </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="p-6">
             <form onSubmit={handleSubmit}>
@@ -93,7 +95,9 @@ export default function ContactPage() {
                 <input
                   type="email"
                   placeholder="Your Email"
-                  className="w-full p-2 border rounded-3xl shadow-lg"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-2 border rounded-2xl shadow-lg text-sm"
                   required
                 />
               </div>
@@ -110,7 +114,6 @@ export default function ContactPage() {
         </div>
       </div>
 
-     
       {/* Google Map Embed */}
       <div className="container mx-auto px-6 my-12">
         <iframe

@@ -14,7 +14,8 @@ export default function CallToAction() {
       {/* Header Section */}
       <div className="w-full flex-1 py-24 bg-blue-800 text-center">
         <h1 className="container px-6 md:px-24 text-white text-3xl md:text-5xl font-extrabold leading-relaxed">
-          Your little support can give a child in a community a livelihood. <br />
+          Your little support can give a child in a community a livelihood.{" "}
+          <br />
           Let's contribute!
         </h1>
       </div>
@@ -35,15 +36,34 @@ export default function CallToAction() {
             Are you passionate about the livelihood of people? Then join us!
           </p>
           <Link to="/membership" onClick={() => window.scrollTo(0, 0)}>
-            <button className="bg-blue-500 w-40 text-white hover:bg-blue-600 mt-6 px-4 py-2 rounded-md border hover:shadow-md transition-all duration-300 ease-in-out">
+            <button className="bg-blue-500 w-40 text-white hover:bg-blue-600 mt-6 px-4 py-2 rounded-md border transition-all duration-300 ease-in-out">
               Join Us
             </button>
           </Link>
         </div>
-        <div className="hidden sm:h-[30rem]"></div>
 
-        {/* Overlapping Donate Section */}
-        <div className="absolute flex flex-col items-center text-center left-1/2 transform -translate-x-1/2 -top-20 w-11/12 md:w-2/3 lg:w-1/3 h-[30rem] bg-teal-400 shadow-lg rounded-lg z-10 transition-transform duration-300 hover:scale-105 p-8 lg:p-16">
+        {/* Empty Space (Mobile Only) */}
+        <div className="lg:hidden flex flex-col items-center text-center px-6 bg-teal-500 p-16 shadow-xl rounded-xl transition-transform duration-300 hover:scale-105">
+          <FontAwesomeIcon
+            icon={faDonate}
+            size="3x"
+            className="pb-6 text-blue-800"
+          />
+          <h2 className="text-white text-2xl md:text-3xl font-bold">
+            Donate To Support
+          </h2>
+          <p className="text-white text-md md:text-lg px-6">
+            Sponsor an entire trending project and make an impact today!
+          </p>
+          <Link to="/contact" onClick={() => window.scrollTo(0, 0)}>
+            <button className="bg-blue-500 w-48 text-white hover:bg-blue-800 mt-8 px-4 py-2 rounded-md border hover:shadow-md transition-all duration-300 ease-in-out">
+              Donate Now
+            </button>
+          </Link>
+        </div>
+
+        {/* Overlapping Donate Section (Large Screens Only) */}
+        <div className="lg:block absolute flex flex-col items-center text-center left-1/2 transform -translate-x-1/2 -top-20 w-11/12 md:w-2/3 lg:w-1/3 lg:h-[30rem] bg-teal-400 shadow-lg rounded-lg z-10 transition-transform duration-300 hover:scale-105 p-8 lg:p-16">
           <FontAwesomeIcon
             icon={faDonate}
             size="3x"
