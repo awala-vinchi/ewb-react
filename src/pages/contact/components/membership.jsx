@@ -345,29 +345,20 @@ export default function FormPage () {
                 Submit
               </button>
             </div>
+            <div className="mt-6 flex justify-center md:justify-start">
+              <Link
+                to="https://chat.whatsapp.com/HwpEXOFlbRVGWqj8pTwBsP"
+                
+              >
+                <button className="bg-blue-500 w-full sm:w-[10rem] text-white hover:bg-blue-600 mt-6 px-4 py-2 rounded-md border hover:border-blue-500 hover:shadow-md transition-all duration-300 ease-in-out">
+                  Join Us
+                </button>
+              </Link>
+            </div>
           </form>
         </div>
       </div>
-      {/* Footer Section */}
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="container mx-auto py-8 px-16">
-          <div className="grid grid-cols-1 sm:grid-cols-3gap-6 max-w-screen-md">
-            <div className="bg-teal-100 p-6 rounded-3xl shadow-lg flex items-center">
-              <div className="text-teal-500 text-3xl mr-4">
-                <PhoneCall size="40" />
-              </div>
-              <div>
-                <a href="https://chat.whatsapp.com/HwpEXOFlbRVGWqj8pTwBsP">
-                  <h4 className="font-semibold text-xl">(+233) 599 482 207</h4>
-                  <p className="text-gray-600">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  </p>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+     
     </section>
   );
 };
