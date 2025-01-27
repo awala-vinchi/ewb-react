@@ -2,29 +2,33 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import client from "../../../sanityClient";
 import { Heart, MessageCircle, Share2 } from "lucide-react";
+import { Rings } from "react-loader-spinner"; // Import Rings for a better loading indicator
 
 export default function Blog() {
   const [postData, setPost] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch posts from Sanity
   async function getPost() {
+    setIsLoading(true); // Ensure loading starts
     try {
-      const data =
-        await client.fetch(`*[_type == "post"] | order(publishedAt desc) {
-        title,
-        description,
-        subHeading,
-        slug { current },
-        mainImage { asset-> { url }, alt },
-        publishedAt
-      }`);
+      const data = await client.fetch(
+        `*[_type == "post"] | order(publishedAt desc) {
+          title,
+          description,
+          subHeading,
+          slug { current },
+          mainImage { asset-> { url }, alt },
+          publishedAt
+        }`
+      );
       setPost(data);
     } catch (error) {
       console.error("Error fetching posts:", error);
       setError("Error fetching posts. Please try again later.");
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Loading finished
     }
   }
 
@@ -41,7 +45,12 @@ export default function Blog() {
 
       {isLoading && (
         <div className="flex items-center justify-center h-32">
-          <p className="text-lg text-gray-500">Loading posts...</p>
+          <Rings
+            height="100"
+            width="100"
+            color="blue"
+            ariaLabel="loading-indicator"
+          />
         </div>
       )}
 
@@ -50,7 +59,8 @@ export default function Blog() {
           <p>{error}</p>
           <button
             onClick={getPost}
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
+            disabled={isLoading} // Disable retry while loading
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50"
           >
             Retry
           </button>
