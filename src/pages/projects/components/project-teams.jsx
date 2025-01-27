@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import client from "../../../sanityClient";
+import { Rings } from "react-loader-spinner"; // Import Rings for the loading spinner
 
 export default function Project() {
   const [projectData, setProject] = useState(null);
+  const [loading, setLoading] = useState(true); // State for loading
 
   async function getProject() {
     try {
@@ -24,6 +26,8 @@ export default function Project() {
       setProject(data);
     } catch (error) {
       console.error("Error fetching project data:", error);
+    } finally {
+      setLoading(false); // Set loading to false once data is fetched
     }
   }
 
@@ -31,19 +35,18 @@ export default function Project() {
     getProject();
   }, []);
 
-   if (loading) {
-     return (
-       <div className="flex items-center justify-center h-screen">
-         <Rings
-           height="100"
-           width="100"
-           color="blue"
-           ariaLabel="loading-indicator"
-         />
-       </div>
-     );
-   }
-
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Rings
+          height="100"
+          width="100"
+          color="blue"
+          ariaLabel="loading-indicator"
+        />
+      </div>
+    );
+  }
 
   return (
     <section className="bg-stone-100 flex flex-col items-center justify-center text-neutral-600 gap-6 py-16 px-6">

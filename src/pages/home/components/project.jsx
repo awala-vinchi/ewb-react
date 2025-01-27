@@ -6,7 +6,7 @@ import { Rings } from "react-loader-spinner";
 
 export default function Project() {
   const [projectData, setProject] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const [isLoading, setIsLoading] = useState(true); // Correct variable name
   const [error, setError] = useState(null); // Optional error handling
 
   async function getProject() {
