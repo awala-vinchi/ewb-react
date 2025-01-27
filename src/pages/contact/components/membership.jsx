@@ -345,15 +345,6 @@ export default function FormPage () {
                 Submit
               </button>
             </div>
-      
-              <Link
-                to="https://chat.whatsapp.com/HwpEXOFlbRVGWqj8pTwBsP"
-                
-              >
-                <button className="bg-blue-500 w-full sm:w-[10rem] text-white hover:bg-blue-600 mt-6 px-4 py-2 rounded-md border hover:border-blue-500 hover:shadow-md transition-all duration-300 ease-in-out">
-                  Join Us
-                </button>
-              </Link>
             
           </form>
         </div>
