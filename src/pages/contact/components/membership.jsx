@@ -345,7 +345,7 @@ export default function FormPage () {
                 Submit
               </button>
             </div>
-            <div className="mt-6 flex justify-center md:justify-start">
+      
               <Link
                 to="https://chat.whatsapp.com/HwpEXOFlbRVGWqj8pTwBsP"
                 
@@ -354,7 +354,7 @@ export default function FormPage () {
                   Join Us
                 </button>
               </Link>
-            </div>
+            
           </form>
         </div>
       </div>
