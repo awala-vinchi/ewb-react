@@ -2,44 +2,61 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import client from "../../../sanityClient";
 import { MapPin } from "lucide-react";
+import { Rings } from "react-loader-spinner";
 
 export default function Project() {
   const [projectData, setProject] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const [error, setError] = useState(null); // Optional error handling
 
   async function getProject() {
-    const data = await client.fetch(`*[_type == "project"]{
-          title,
-          location,
-          description,
-          slug{
-            current
-          },
-          mainImage{
-            asset ->{
-              url
-            }
+    try {
+      const data = await client.fetch(`*[_type == "project"]{
+        title,
+        location,
+        description,
+        slug{
+          current
+        },
+        mainImage{
+          asset ->{
+            url
           }
-        }`);
-    setProject(data);
+        }
+      }`);
+      setProject(data);
+    } catch (err) {
+      console.error("Error fetching project data:", err);
+      setError("Failed to load projects. Please try again later.");
+    } finally {
+      setIsLoading(false); // Ensure loading state is updated
+    }
   }
 
   useEffect(() => {
     getProject();
   }, []);
 
-   if (loading) {
-     return (
-       <div className="flex items-center justify-center h-screen">
-         <Rings
-           height="100"
-           width="100"
-           color="blue"
-           ariaLabel="loading-indicator"
-         />
-       </div>
-     );
-   }
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Rings
+          height="100"
+          width="100"
+          color="blue"
+          ariaLabel="loading-indicator"
+        />
+      </div>
+    );
+  }
 
+  if (error) {
+    return (
+      <div className="text-center text-red-500 font-semibold">
+        <p>{error}</p>
+      </div>
+    );
+  }
 
   return (
     <section className="w-full py-24 flex flex-col items-center justify-center">
@@ -58,8 +75,11 @@ export default function Project() {
               >
                 <div className="relative group h-96 w-72 overflow-hidden rounded-lg shadow-lg mx-auto">
                   <img
-                    src={project.mainImage.asset.url} // Replace with the image URL you want
-                    alt={project.mainImage.alt || project.title}
+                    src={
+                      project.mainImage?.asset?.url ||
+                      "https://via.placeholder.com/300"
+                    }
+                    alt={project.mainImage?.alt || project.title}
                     className="absolute inset-0 object-cover transition-transform duration-500 group-hover:scale-110 group-hover:blur-sm h-full w-full"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-opacity duration-500 flex items-end justify-center">

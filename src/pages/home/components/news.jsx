@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import client from "../../../sanityClient";
 import { Heart, MessageCircle, Share2 } from "lucide-react";
+import { Rings } from "react-loader-spinner";
 
 export default function Blog() {
   const [postData, setPost] = useState(null);
@@ -33,19 +34,18 @@ export default function Blog() {
     getPost();
   }, []);
 
-   if (loading) {
-     return (
-       <div className="flex items-center justify-center h-screen">
-         <Rings
-           height="100"
-           width="100"
-           color="blue"
-           ariaLabel="loading-indicator"
-         />
-       </div>
-     );
-   }
-
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Rings
+          height="100"
+          width="100"
+          color="blue"
+          ariaLabel="loading-indicator"
+        />
+      </div>
+    );
+  }
 
   return (
     <section className="py-16 w-full flex flex-col items-center justify-center text-neutral-600 bg-stone-100">
@@ -54,15 +54,13 @@ export default function Blog() {
         <p className="text-md">Blog Posts</p>
       </div>
 
-      {isLoading && <p>Loading posts...</p>}
-
       {error && (
         <div className="text-center text-red-500 font-semibold">
           <p>{error}</p>
         </div>
       )}
 
-      {!isLoading && !error && postData && (
+      {!error && postData && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
           {postData.slice(0, 3).map((post) => (
             <article key={post.slug.current} className="flex justify-center">
