@@ -336,7 +336,7 @@ export default function FormPage () {
                 <option value="Innovation">Innovation</option>
               </select>
             </div>
-            
+
             <div className="flex justify-center mt-6">
               <button
                 type="submit"
@@ -349,41 +349,21 @@ export default function FormPage () {
         </div>
       </div>
       {/* Footer Section */}
-      <div className="container mx-auto py-8 px-16">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div className="bg-teal-100 p-6 rounded-3xl shadow-lg flex items-center">
-            <div className="text-teal-500 text-3xl mr-4">
-              <PhoneCall size="40" />
-            </div>
-            <div>
-              <a href="https://chat.whatsapp.com/HwpEXOFlbRVGWqj8pTwBsP">
-                <h4 className="font-semibold text-xl">(+233) 599 482 207</h4>
-                <p className="text-gray-600">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </p>
-              </a>
-            </div>
-          </div>
-          <div className="bg-teal-100 p-6 rounded-3xl shadow-lg flex items-center">
-            <div className="text-teal-500 text-3xl mr-4">
-              <AtSign size="40" />
-            </div>
-            <div>
-              <h4 className="font-semibold text-xl">mail@influenca.id</h4>
-              <p className="text-gray-600">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </p>
-            </div>
-          </div>
-          <div className="bg-teal-100 p-6 rounded-2xl shadow-lg flex items-center">
-            <div className="text-teal-500 text-3xl mr-4">
-              <MapPin size="40" />
-            </div>
-            <div>
-              <h4 className="font-semibold text-xl">London Eye, London</h4>
-              <p className="text-gray-600">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              </p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="container mx-auto py-8 px-16">
+          <div className="grid grid-cols-1 sm:grid-cols-3gap-6 max-w-screen-md">
+            <div className="bg-teal-100 p-6 rounded-3xl shadow-lg flex items-center">
+              <div className="text-teal-500 text-3xl mr-4">
+                <PhoneCall size="40" />
+              </div>
+              <div>
+                <a href="https://chat.whatsapp.com/HwpEXOFlbRVGWqj8pTwBsP">
+                  <h4 className="font-semibold text-xl">(+233) 599 482 207</h4>
+                  <p className="text-gray-600">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </p>
+                </a>
+              </div>
             </div>
           </div>
         </div>
