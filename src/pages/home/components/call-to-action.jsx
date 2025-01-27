@@ -63,7 +63,7 @@ export default function CallToAction() {
         </div>
 
         {/* Overlapping Donate Section (Large Screens Only) */}
-        <div className="md:hidden absolute flex flex-col items-center text-center left-1/2 transform -translate-x-1/2 -top-20 w-11/12 md:w-2/3 lg:w-1/3 lg:h-[30rem] bg-teal-400 shadow-lg rounded-lg z-10 transition-transform duration-300 hover:scale-105 p-8 lg:p-16">
+        <div className="hidden lg:block absolute flex-col items-center text-center left-1/2 transform -translate-x-1/2 -top-20 w-11/12 md:w-2/3 lg:w-1/3 lg:h-[30rem] bg-teal-400 shadow-lg rounded-lg z-10 transition-transform duration-300 hover:scale-105 p-8 lg:p-16">
           <FontAwesomeIcon
             icon={faDonate}
             size="3x"
