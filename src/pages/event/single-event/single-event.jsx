@@ -5,7 +5,7 @@ import { Clock, MapPin } from "lucide-react";
 import { PortableText } from "@portabletext/react";
 
 export default function SingleEvent() {
-  const { slug } = useParams(); // Get the slug from the URL
+  const { slug } = useParams();
   const [event, setEvent] = useState(null);
 
   async function getEvent() {
@@ -51,7 +51,6 @@ export default function SingleEvent() {
     );
   }
 
-  // Function to get the day of the week from the dayOfWeek number
   const getDayOfWeek = (dayIndex) => {
     const days = [
       "Sunday",
@@ -65,31 +64,49 @@ export default function SingleEvent() {
     return days[dayIndex] || "Unknown Day";
   };
 
-  // Function to format non-recurring event dates
   const formatDate = (date) => {
     const formattedDate = new Date(date).toLocaleDateString("en-US", {
       day: "2-digit",
       month: "short",
     });
-    return formattedDate || ""; // Ensure it always returns a string
+    return formattedDate || "";
   };
 
   return (
-    <section className="py-16 w-full flex flex-col items-center bg-stone-100 text-gray-700">
+    <section className="py-12 w-full flex flex-col items-center bg-stone-100 text-gray-700  mt-10">
       {/* Header */}
-      <div className="w-full max-w-5xl p-4 text-center">
-        <h1 className="text-4xl font-bold mb-4">{event.title}</h1>
-        <div className="flex justify-center items-center text-sm text-gray-600">
-          <Clock className="w-4 h-4 mr-2" />
+      <div className="w-full max-w-5xl px-4 text-center">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4">{event.title}</h1>
+        <div className="flex flex-wrap justify-center items-center text-sm text-gray-600 gap-2">
+          <Clock className="w-4 h-4" />
           <span>{event.time || "Time not available"}</span>
-          <MapPin className="w-4 h-4 mx-2" />
+          <MapPin className="w-4 h-4" />
           <span>{event.venue || "Venue not available"}</span>
         </div>
       </div>
 
+      {/* Date Badge */}
+      <div className="top-16 right-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md text-center sm:static sm:mt-8 mt-6">
+        <p className="text-xl font-bold">
+          {event.isRecurring
+            ? getDayOfWeek(event.dayOfWeek)
+            : event.programDate
+            ? formatDate(event.programDate).split(",")[0]
+            : "Date not available"}
+        </p>
+        <p className="text-sm">
+          {event.isRecurring
+            ? event.recurrenceType.charAt(0).toUpperCase() +
+              event.recurrenceType.slice(1)
+            : event.programDate
+            ? formatDate(event.programDate).split(",")[1]?.trim() || ""
+            : "Date not available"}
+        </p>
+      </div>
+
       {/* Event Image */}
       {event.mainImage?.asset?.url && (
-        <div className="w-full max-w-3xl my-8">
+        <div className="w-full max-w-3xl my-8 px-4">
           <img
             src={event.mainImage.asset.url}
             alt={event.title}
@@ -107,7 +124,7 @@ export default function SingleEvent() {
 
       {/* Flyer (Optional) */}
       {event.flyer?.asset?.url && (
-        <div className="w-full max-w-3xl mt-12">
+        <div className="w-full max-w-3xl mt-12 px-4">
           <h2 className="text-2xl font-bold mb-4">Event Flyer</h2>
           <img
             src={event.flyer.asset.url}
@@ -116,27 +133,6 @@ export default function SingleEvent() {
           />
         </div>
       )}
-
-      {/* Date Badge */}
-      <div className="absolute top-16 right-16 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md">
-        <p className="text-2xl font-bold">
-          {
-            event.isRecurring
-              ? getDayOfWeek(event.dayOfWeek) // For recurring events, show the day of the week
-              : event.programDate
-              ? formatDate(event.programDate).split(",")[0]
-              : "Date not available" // For non-recurring events, show the program date if available
-          }
-        </p>
-        <p className="text-lg">
-          {event.isRecurring
-            ? event.recurrenceType.charAt(0).toUpperCase() +
-              event.recurrenceType.slice(1) // Show recurrence type for recurring events
-            : event.programDate
-            ? formatDate(event.programDate).split(",")[1]?.trim() || ""
-            : "Date not available"}
-        </p>
-      </div>
     </section>
   );
 }
