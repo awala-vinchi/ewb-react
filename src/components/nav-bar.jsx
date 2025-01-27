@@ -45,9 +45,9 @@ export default function NavBar() {
       {/* Hamburger Icon (Mobile) */}
       <div className="block lg:hidden ml-auto" onClick={toggleMobileMenu}>
         {isMobileMenuOpen ? (
-          <HiX className="w-8 h-8 text-white" />
+          <HiX className="w-8 h-8 text-black" />
         ) : (
-          <HiMenuAlt4 className="w-8 h-8 text-white" />
+          <HiMenuAlt4 className="w-8 h-8 text-black" />
         )}
       </div>
 
