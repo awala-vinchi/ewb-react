@@ -33,6 +33,20 @@ export default function Blog() {
     getPost();
   }, []);
 
+   if (loading) {
+     return (
+       <div className="flex items-center justify-center h-screen">
+         <Rings
+           height="100"
+           width="100"
+           color="blue"
+           ariaLabel="loading-indicator"
+         />
+       </div>
+     );
+   }
+
+
   return (
     <section className="py-16 w-full flex flex-col items-center justify-center text-neutral-600 bg-stone-100">
       <div className="text-center mb-8">

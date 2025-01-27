@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import client from "../../../sanityClient";
 import { Clock, MapPin } from "lucide-react";
 import { PortableText } from "@portabletext/react";
+import { Rings } from "react-loader-spinner";
 
 export default function SingleEvent() {
   const { slug } = useParams();
   const [event, setEvent] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   async function getEvent() {
     try {
@@ -36,6 +38,8 @@ export default function SingleEvent() {
       setEvent(eventData);
     } catch (error) {
       console.error("Error fetching event data:", error);
+    } finally {
+      setLoading(false); // Stop loading when data fetch is complete
     }
   }
 
@@ -43,10 +47,24 @@ export default function SingleEvent() {
     getEvent();
   }, [slug]);
 
+   if (loading) {
+     return (
+       <div className="flex items-center justify-center h-screen">
+         <Rings
+           height="100"
+           width="100"
+           color="blue"
+           ariaLabel="loading-indicator"
+         />
+       </div>
+     );
+   }
+
+
   if (!event) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <p>Loading event details...</p>
+        <p>Event not found.</p>
       </div>
     );
   }
@@ -73,7 +91,7 @@ export default function SingleEvent() {
   };
 
   return (
-    <section className="py-12 w-full flex flex-col items-center bg-stone-100 text-gray-700  mt-10">
+    <section className="py-12 w-full flex flex-col items-center bg-stone-100 text-gray-700 mt-10">
       {/* Header */}
       <div className="w-full max-w-5xl px-4 text-center">
         <h1 className="text-3xl md:text-4xl font-bold mb-4">{event.title}</h1>

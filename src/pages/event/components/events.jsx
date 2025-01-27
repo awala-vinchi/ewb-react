@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import client from "../../../sanityClient";
 import { Clock, MapPin } from "lucide-react";
+import { Rings } from "react-loader-spinner";
 
 export default function EventCard() {
   const [eventData, setEvent] = useState(null);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   async function getEvent() {
     try {
@@ -42,6 +44,8 @@ export default function EventCard() {
       setEvent(sortedData);
     } catch (error) {
       console.error("Error fetching event data:", error);
+    } finally {
+      setLoading(false); // Stop loading after data is fetched
     }
   }
 
@@ -68,6 +72,19 @@ export default function EventCard() {
       month: "short",
     });
   };
+
+   if (loading) {
+     return (
+       <div className="flex items-center justify-center h-screen">
+         <Rings
+           height="100"
+           width="100"
+           color="blue"
+           ariaLabel="loading-indicator"
+         />
+       </div>
+     );
+   }
 
   return (
     <section className="py-16 w-full flex flex-col items-center justify-center text-neutral-600 bg-stone-100">

@@ -19,6 +19,8 @@ export default function ContactPage() {
     window.location.href = formUrl;
   };
 
+  
+
   return (
     <section className="contact-page bg-blue-50 text-neutral-600 flex flex-col items-center justify-center min-h-screen">
       <div className="p-8 bg-white shadow-lg rounded-3xl w-full max-w-md mt-10">

@@ -76,6 +76,20 @@ export default function SingleProject() {
     },
   };
 
+   if (loading) {
+     return (
+       <div className="flex items-center justify-center h-screen">
+         <Rings
+           height="100"
+           width="100"
+           color="blue"
+           ariaLabel="loading-indicator"
+         />
+       </div>
+     );
+   }
+
+
   return (
     <section className="w-full py-16 flex flex-col items-center bg-gray-50 text-gray-800">
       {project ? (

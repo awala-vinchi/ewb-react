@@ -27,6 +27,20 @@ export default function Project() {
     getProject();
   }, []);
 
+   if (loading) {
+     return (
+       <div className="flex items-center justify-center h-screen">
+         <Rings
+           height="100"
+           width="100"
+           color="blue"
+           ariaLabel="loading-indicator"
+         />
+       </div>
+     );
+   }
+
+
   return (
     <section className="w-full py-24 flex flex-col items-center justify-center">
       <div className="text-neutral-600 text-center p-10">

@@ -88,6 +88,20 @@ export default function SinglePost() {
     },
   };
 
+   if (loading) {
+     return (
+       <div className="flex items-center justify-center h-screen">
+         <Rings
+           height="100"
+           width="100"
+           color="blue"
+           ariaLabel="loading-indicator"
+         />
+       </div>
+     );
+   }
+
+
   return (
     <section className="py-16 px-4 w-full bg-stone-100 text-neutral-800">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">

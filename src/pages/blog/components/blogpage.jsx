@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import client from "../../../sanityClient";
 import { Heart, MessageCircle, Share2 } from "lucide-react";
+import { Rings } from "react-loader-spinner";
 
 export default function Blog() {
   const [postData, setPost] = useState(null);
@@ -39,7 +40,16 @@ export default function Blog() {
         <p className="text-md">Blog Posts</p>
       </div>
 
-      {isLoading && <p>Loading posts...</p>}
+      {isLoading && (
+        <div className="flex items-center justify-center h-32">
+          <Rings
+            height="100"
+            width="100"
+            color="blue"
+            ariaLabel="loading-indicator"
+          />
+        </div>
+      )}
 
       {error && (
         <div className="text-center text-red-500 font-semibold">
