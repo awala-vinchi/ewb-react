@@ -93,10 +93,10 @@ export default function Team() {
 
                 {/* Bottom Text Overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-2 m-6 bg-transparent backdrop-blur-md rounded-lg flex flex-col items-start justify-center">
-                  <h4 className="text-md font-bold text-neutral-800">
+                  <h4 className="text-md font-bold text-white">
                     {team.name}
                   </h4>
-                  <p className="text-sm font-bold text-neutral-600">
+                  <p className="text-sm font-bold text-white">
                     {team.position || "Role not specified"}
                   </p>
                 </div>
