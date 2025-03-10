@@ -1,6 +1,6 @@
-import sanityClient from '@sanity/client';
+import { createClient } from "@sanity/client";
 
-const client = sanityClient({
+const client = createClient({
   projectId: 'ltigqay9', // Replace with your Sanity project ID
   dataset: 'production', // Replace with your dataset name (e.g., 'production')
   apiVersion: '2021-03-25', // Replace with the latest API version
