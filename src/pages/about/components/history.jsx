@@ -1,4 +1,5 @@
 import React from "react";
+import Pic1 from "../../../assets/images/1.jpg";
 
 export default function HistorySection() {
   return (
@@ -23,7 +24,7 @@ export default function HistorySection() {
           <div className="flex flex-col md:flex-row items-center gap-6">
             <div className="flex-shrink-0 w-full md:w-1/2">
               <img
-                src="https://via.placeholder.com/600x400"
+                src={Pic1}
                 alt="Our History"
                 className="rounded-lg shadow-lg w-full h-auto"
               />
@@ -53,7 +54,7 @@ export default function HistorySection() {
             </div>
             <div className="flex-shrink-0 w-full md:w-1/2">
               <img
-                src="https://via.placeholder.com/600x400"
+                src={Pic1}
                 alt="Our Achievements"
                 className="rounded-lg shadow-lg w-full h-auto"
               />

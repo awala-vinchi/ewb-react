@@ -7,10 +7,12 @@ import { PortableText } from "@portabletext/react";
 export default function SinglePost() {
   const { slug } = useParams(); // Get the post slug from URL
   const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Fetch single post data
   async function fetchPost() {
     try {
+      setLoading(true); // Start loading
       const data = await client.fetch(
         `*[_type == "post" && slug.current == $slug][0]{
           title,
@@ -31,6 +33,8 @@ export default function SinglePost() {
       setPost(data);
     } catch (error) {
       console.error("Error fetching post data:", error);
+    } finally {
+      setLoading(false); // Stop loading
     }
   }
 
@@ -38,10 +42,18 @@ export default function SinglePost() {
     fetchPost();
   }, [slug]);
 
-  if (!post) {
+  if (loading) {
     return (
       <section className="flex items-center justify-center h-screen">
         <p className="text-lg text-gray-600">Loading post...</p>
+      </section>
+    );
+  }
+
+  if (!post) {
+    return (
+      <section className="flex items-center justify-center h-screen">
+        <p className="text-lg text-gray-600">Post not found.</p>
       </section>
     );
   }
@@ -88,22 +100,8 @@ export default function SinglePost() {
     },
   };
 
-   if (loading) {
-     return (
-       <div className="flex items-center justify-center h-screen">
-         <Rings
-           height="100"
-           width="100"
-           color="blue"
-           ariaLabel="loading-indicator"
-         />
-       </div>
-     );
-   }
-
-
   return (
-    <section className="py-16 px-4 w-full bg-stone-100 text-neutral-800">
+    <section className="py-16 px-4 w-full bg-stone-100 text-neutral-800 mt-10">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
         {/* Main Image */}
         <img
@@ -114,8 +112,10 @@ export default function SinglePost() {
 
         {/* Post Content */}
         <div className="p-6">
-          <h1 className="text-3xl font-bold text-gray-900">{post.title}</h1>
-          <h2 className="text-xl text-gray-600 mt-2">{post.subHeading}</h2>
+          <h1 className="text-3xl font-bold text-gray-900">
+            {post?.title || "Untitled"}
+          </h1>
+          <h2 className="text-xl text-gray-600 mt-2">{post?.subHeading}</h2>
 
           {/* Metadata */}
           <div className="flex items-center text-sm text-gray-500 my-4">
@@ -132,7 +132,7 @@ export default function SinglePost() {
           </div>
 
           {/* Description */}
-          <p className="text-gray-700 my-4">{post.description}</p>
+          <p className="text-gray-700 my-4">{post?.description}</p>
 
           {/* Body */}
           <div className="mt-6">
@@ -140,8 +140,6 @@ export default function SinglePost() {
               <PortableText value={post.body} components={components} />
             )}
           </div>
-
-          
         </div>
       </div>
     </section>
